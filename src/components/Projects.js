@@ -35,7 +35,7 @@ const Projects = () => {
                             return (
                                 <div key={key} className="project">
                                     <div className="content">
-                                        <img src={Project} alt="Project" />
+                                        <img src={Project} alt="" />
                                         <h2 className="name">{project.name}</h2>
                                         {
                                             project.description.length > 130 
@@ -47,6 +47,7 @@ const Projects = () => {
                                             className="project-button"
                                             target="_blank"
                                             href={project.link}
+                                            aria-label={`${project.name} on GitHub`}
                                             rel="noreferrer"
                                             >GitHub
                                             </a>

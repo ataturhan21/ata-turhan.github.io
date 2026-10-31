@@ -1,27 +1,27 @@
 [
-    {
-        "name" : "Project 1",
-        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, \nsed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, \nsed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "link" : "https://github.com/"
-    },
-    {
-        "name" : "Project 2",
-        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, \nsed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, \nsed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "link" : "https://github.com/"
-    },
-    {
-        "name" : "Project 3",
-        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, \nsed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, \nsed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "link" : "https://github.com/"
-    },
-    {
-        "name" : "Project 4",
-        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, \nsed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, \nsed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "link" : "https://github.com/"
-    },
-    {
-        "name" : "Project 5",
-        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, \nsed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, \nsed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "link" : "https://github.com/"
-    }
+  {
+    "name": "Aware Care",
+    "description": "Local AI healthcare navigation demo for HP ZGX, with synthetic scenarios and model evaluation. Demonstration only.",
+    "link": "https://github.com/ataturhan21/HP-Edge-AI-Demo-Aware-Care"
+  },
+  {
+    "name": "Image Captioner",
+    "description": "PyTorch research notebook combining a ConvNeXt image encoder with a custom Transformer decoder for image captions.",
+    "link": "https://github.com/ataturhan21/ImageCaptioner-ConvNeXt_Transformer"
+  },
+  {
+    "name": "Alpha Trading Bot",
+    "description": "Streamlit application for market data exploration, trading strategy backtests, and parameter optimization.",
+    "link": "https://github.com/ataturhan21/Alpha-Trading-Bot"
+  },
+  {
+    "name": "Sigma Chatbot",
+    "description": "University information chatbot using Streamlit, OpenAI, LangChain, and ChromaDB. A fork of the community's TOBB-GPT.",
+    "link": "https://github.com/ataturhan21/Sigma-Chatbot"
+  },
+  {
+    "name": "Optimized CNN-TA",
+    "description": "Research comparing technical analysis, machine learning, and deep learning approaches to trading strategies.",
+    "link": "https://github.com/ataturhan21/Optimized-CNN-TA"
+  }
 ]

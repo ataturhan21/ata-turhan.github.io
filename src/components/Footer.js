@@ -12,7 +12,7 @@ const Footer = () => {
             <div>
                 <h1>Social Links</h1>
                 <div className="social-icons">
-                    <a href="https://medium.com/@ataturhan"><i><FaMedium /></i></a>
+                    <a href="https://medium.com/@ataturhan21" aria-label="Ata Turhan on Medium"><i><FaMedium /></i></a>
                 </div>
             </div>
         </footer>
