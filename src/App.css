@@ -621,3 +621,91 @@ a, a:active, a:hover {
   display: inline-block;
 }
 /* End Footer section  */
+
+/* Keep keyboard controls visible and anchors clear of the fixed header. */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid #111;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px #fff;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  color: #fff;
+  background: #111;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+#main-content,
+#about,
+#projects,
+#skills {
+  scroll-margin-top: 6rem;
+}
+
+.body-headline {
+  margin: 0;
+}
+
+/* Let text and wrapped cards determine section height on short screens. */
+.about,
+.projects,
+.skills {
+  height: auto;
+  box-sizing: border-box;
+}
+
+.about { min-height: 72vh; }
+.projects { min-height: 65vh; margin-top: 0; padding-bottom: 2rem; }
+.skills { min-height: 50vh; }
+
+.projects-container .project {
+  height: auto;
+  min-height: 23rem;
+}
+
+.projects-container .project .content {
+  height: auto;
+  min-height: 20rem;
+  margin: 1rem 0;
+  padding-bottom: 1rem;
+}
+
+@media (max-width: 600px) {
+  .header { height: auto; background: #222; }
+  .header-logo { position: static; justify-content: center; padding: 0; }
+  .header-name { margin: 0.5rem 0; padding: 0.5em; }
+  .header-container { justify-content: center; gap: 1.25rem; padding: 0.75rem; }
+  .nav-item { font-size: 1rem; margin: 0; }
+  #main-content, #about, #projects, #skills { scroll-margin-top: 8rem; }
+  .about { padding: 3rem 1.25rem; }
+  .about-heading, .title { font-size: 2.5rem; }
+  .about-info { flex-direction: column; align-items: center; }
+  .about .about-info .about-desc { max-width: 100%; font-size: 1.2rem; }
+  .projects-container { padding: 1.5rem; }
+  .footer { box-sizing: border-box; padding: 3rem 1rem; }
+  .footer .footer-contact-info .footer-contact-access {
+    font-size: 1rem;
+    letter-spacing: 0;
+    overflow-wrap: anywhere;
+  }
+  .skill { font-size: 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
