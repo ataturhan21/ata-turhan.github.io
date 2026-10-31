@@ -6,10 +6,10 @@ const Body = () => {
         <div id="body" className="body">
             <div className="body-container">
                 <div className="body-profile">
-                    <img className="body-img" alt='avatar' src={Avatar} />
+                    <img className="body-img" alt="Ata Turhan" src={Avatar} />
 
                     <div className="body-content">
-                        <div className="body-headline">Ata Turhan</div>
+                        <h1 className="body-headline">Ata Turhan</h1>
                         <div className="body-text">AI Engineer &amp; Manager · Founder &amp; CEO</div>
                     </div>
 
