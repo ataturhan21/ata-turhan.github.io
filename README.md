@@ -38,3 +38,7 @@ This project uses React 18.2 and `react-scripts` 5.0.1. Use a Node.js/npm enviro
 Before publishing, run tests and a production build, inspect the page at desktop and mobile sizes, and confirm the hosting URL/base path. This repository update does not configure or verify a production deployment.
 
 Project card artwork is decorative; project descriptions and GitHub links identify the actual work.
+
+## License
+
+[MIT](LICENSE).
