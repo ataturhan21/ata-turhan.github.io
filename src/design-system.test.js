@@ -39,6 +39,18 @@ test('project cards fill their grid cells, so a row ends together (#93)', () => 
   expect(declaration(app, '.project-card', 'flex')).toBe('1');
 });
 
+test('the first project spans two columns only where the grid has two (#101)', () => {
+  expect(declaration(app, '.project-grid', 'container')).toBe('projects / inline-size');
+  const query = app.match(/@container projects \(min-width: ([\d.]+)rem\) \{\s*\.project-grid > li:first-child \{\s*grid-column: span 2;/);
+  expect(query).not.toBeNull();
+  // The query must start exactly where a second column fits (two column minimums plus the gap), or
+  // the span would add a column the grid doesn't have.
+  const column = parseFloat(declaration(app, '.project-grid', 'grid-template-columns').match(/min\(100%, ([\d.]+)rem\)/)[1]);
+  const gap = parseFloat(base.match(/--space-5:\s*([\d.]+)rem;/)[1]);
+  expect(declaration(app, '.project-grid', 'gap')).toBe('var(--space-5)');
+  expect(parseFloat(query[1])).toBe(2 * column + gap);
+});
+
 test('headings and text avoid single words on a last line (#94)', () => {
   for (const selector of ['h1', 'h2', 'h3']) expect(declaration(base, selector, 'text-wrap')).toBe('balance');
   for (const selector of ['p', 'dd']) expect(declaration(base, selector, 'text-wrap')).toBe('pretty');

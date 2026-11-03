@@ -387,11 +387,20 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
   gap: var(--space-5);
+  container: projects / inline-size;
 }
 
 /* Each card fills its grid cell, so cards in a row end together and their tags and links line up. */
 .project-grid > li {
   display: flex;
+}
+
+/* The lead project spans two columns wherever the grid has two (2 × 19rem + the gap), so five
+   projects fill every row; on one column it stays a single card. */
+@container projects (min-width: 39.5rem) {
+  .project-grid > li:first-child {
+    grid-column: span 2;
+  }
 }
 
 .project-card {
