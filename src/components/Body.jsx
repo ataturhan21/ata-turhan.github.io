@@ -1,6 +1,7 @@
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { FiAward, FiMonitor, FiSun } from "react-icons/fi";
 import Avatar from '../assets/pfp.webp';
+import AvatarMedium from '../assets/pfp-480.webp';
 import AvatarSmall from '../assets/pfp-360.webp';
 import ExternalLink from './ExternalLink';
 
@@ -22,7 +23,7 @@ const Body = () => {
                     </ul>
                 </div>
                 <div className="hero__portrait">
-                    <img alt="Ata Turhan" src={Avatar} srcSet={`${AvatarSmall} 360w, ${Avatar} 720w`} sizes="(max-width: 52rem) 11rem, 24rem" width="720" height="836" />
+                    <img alt="Ata Turhan" src={Avatar} srcSet={`${AvatarSmall} 360w, ${AvatarMedium} 480w, ${Avatar} 720w`} sizes="(max-width: 52rem) 11rem, 24rem" width="720" height="836" />
                 </div>
             </div>
             <div className="container">

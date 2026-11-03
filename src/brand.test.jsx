@@ -28,7 +28,8 @@ test('shows the highlights from ataturhan.com under the hero', () => {
   ]);
   const portrait = screen.getByRole('img', { name: 'Ata Turhan' });
   expect(portrait).toHaveAttribute('width', '720');
-  // Phones get the 360 px file for their 11rem card.
-  expect(portrait.getAttribute('srcset')).toMatch(/ 360w, .+ 720w$/);
+  // Phones get the 360 px file for their 11rem card, 1× desktops the 480 px one for the 24rem card,
+  // and 2× desktops the 720 px one.
+  expect(portrait.getAttribute('srcset')).toMatch(/ 360w, .+ 480w, .+ 720w$/);
   expect(portrait).not.toHaveAttribute('fetchpriority');
 });
