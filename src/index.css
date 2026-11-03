@@ -130,6 +130,18 @@ dd {
   margin: 0;
 }
 
+/* No word left alone on a last line; browsers without text-wrap keep normal wrapping. */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p,
+dd {
+  text-wrap: pretty;
+}
+
 ul {
   padding: 0;
   list-style: none;

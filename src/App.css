@@ -37,6 +37,7 @@
 .section-lead {
   margin-top: var(--space-3);
   color: var(--color-text-muted);
+  text-wrap: balance;
 }
 
 .text-link {
@@ -255,6 +256,7 @@
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+  text-wrap: balance;
 }
 
 .hero__title {
@@ -278,6 +280,7 @@
   color: var(--color-text-muted);
   font-size: var(--text-lg);
   line-height: 1.55;
+  text-wrap: balance;
 }
 
 .hero__actions {
@@ -408,6 +411,7 @@
 .project-card__desc {
   color: var(--color-text-muted);
   font-size: var(--text-base);
+  text-wrap: balance;
 }
 
 .tag-list {
