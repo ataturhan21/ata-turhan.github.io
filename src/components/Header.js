@@ -1,14 +1,23 @@
+const sections = [
+    { label: 'About', href: '#about' },
+    { label: 'Projects', href: '#projects' },
+    { label: 'Skills', href: '#skills' },
+    { label: 'Contact', href: '#contact' },
+];
+
 const Header = () => {
     return (
-        <header className="header">
-                <div className="header-logo">
-                    <a href="#app"><span className="header-name">ATA TURHAN</span></a>
-                </div>
-                <nav className="header-container" aria-label="Primary">
-                    <div className="nav-item"><a href="#about">About</a></div>
-                    <div className="nav-item"><a href="#projects">Projects</a></div>
-                    <div className="nav-item"><a href="#skills">Skills</a></div>
+        <header className="site-header">
+            <div className="container site-header__inner">
+                <a className="wordmark" href="#app">Ata Turhan</a>
+                <nav aria-label="Primary">
+                    <ul className="nav-list">
+                        {sections.map(({ label, href }) => (
+                            <li key={href}><a href={href}>{label}</a></li>
+                        ))}
+                    </ul>
                 </nav>
+            </div>
         </header>
     )
 }

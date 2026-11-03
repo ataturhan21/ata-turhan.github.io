@@ -2,26 +2,31 @@
   {
     "name": "Aware Care",
     "description": "Local AI healthcare navigation demo for HP ZGX, with synthetic scenarios and model evaluation. Demonstration only.",
+    "tags": ["Local LLM", "Edge AI", "Docker"],
     "link": "https://github.com/ataturhan21/HP-Edge-AI-Demo-Aware-Care"
   },
   {
     "name": "Image Captioner",
     "description": "PyTorch research notebook combining a ConvNeXt image encoder with a custom Transformer decoder for image captions.",
+    "tags": ["PyTorch", "ConvNeXt", "Transformer"],
     "link": "https://github.com/ataturhan21/ImageCaptioner-ConvNeXt_Transformer"
   },
   {
     "name": "Alpha Trading Bot",
     "description": "Streamlit application for market data exploration, trading strategy backtests, and parameter optimization.",
+    "tags": ["Python", "Streamlit", "Backtesting"],
     "link": "https://github.com/ataturhan21/Alpha-Trading-Bot"
   },
   {
     "name": "Sigma Chatbot",
     "description": "University information chatbot using Streamlit, OpenAI, LangChain, and ChromaDB. A fork of the community's TOBB-GPT.",
+    "tags": ["LangChain", "OpenAI", "ChromaDB"],
     "link": "https://github.com/ataturhan21/Sigma-Chatbot"
   },
   {
     "name": "Optimized CNN-TA",
     "description": "Research comparing technical analysis, machine learning, and deep learning approaches to trading strategies.",
+    "tags": ["Deep learning", "Technical analysis", "Algorithmic trading"],
     "link": "https://github.com/ataturhan21/Optimized-CNN-TA"
   }
 ]
