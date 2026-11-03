@@ -15,7 +15,7 @@ npm ci
 npm start
 ```
 
-This project uses React 18.3, built with Vite 8 and tested with Vitest 5 (as locked in `package-lock.json`). It needs Node.js 22 (22.13 or later) or 24, the range ESLint, Vite and Vitest share, declared in `package.json` `engines`; CI uses Node 22. `npm start` serves the site at http://localhost:5173 and reloads on save.
+This project uses React 18.3, built with Vite 8 and tested with Vitest 5 (as locked in `package-lock.json`). It needs Node.js 22.22.2 or later on 22, or 24.15 or later, the range every locked package supports, declared in `package.json` `engines`. `.nvmrc` picks Node 24 for local work and deploys (`nvm use`), and CI checks both 22 and 24. `npm start` serves the site at http://localhost:5173 and reloads on save.
 
 ## Commands
 
