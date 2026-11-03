@@ -1,4 +1,4 @@
-import { FaMedium } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaMedium } from 'react-icons/fa';
 
 const Footer = () => {
     return (
@@ -12,6 +12,8 @@ const Footer = () => {
             <div>
                 <h2>Social Links</h2>
                 <div className="social-icons">
+                    <a href="https://github.com/ataturhan21" target="_blank" rel="noreferrer" aria-label="Ata Turhan on GitHub"><i><FaGithub /></i></a>
+                    <a href="https://www.linkedin.com/in/ataturhan21/" target="_blank" rel="noreferrer" aria-label="Ata Turhan on LinkedIn"><i><FaLinkedin /></i></a>
                     <a href="https://medium.com/@ataturhan21" aria-label="Ata Turhan on Medium"><i><FaMedium /></i></a>
                 </div>
             </div>
