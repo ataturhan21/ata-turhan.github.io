@@ -2,17 +2,18 @@ import fs from 'fs';
 import path from 'path';
 import { render, screen, within } from '@testing-library/react';
 import App from './App';
-import About from './components/About';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
+import projects from './data/projects.json';
 
 const root = path.join(__dirname, '..');
 const read = (...parts) => fs.readFileSync(path.join(root, ...parts), 'utf8');
+const stylesheet = () => (read('src', 'index.css') + read('src', 'App.css')).replace(/\/\*[\s\S]*?\*\//g, '');
 
-// Declarations for a selector in App.css, either at the top level or inside one @media query.
-const cssRule = (selector, media = null) => {
-  const css = read('src', 'App.css').replace(/\/\*[\s\S]*?\*\//g, '');
-  const blocks = [];
+// Declarations for a selector at the top level of the stylesheets (outside @media and @supports).
+const cssRule = (selector) => {
+  const css = stylesheet();
+  const declarations = {};
   let depth = 0;
   let start = 0;
   let prelude = '';
@@ -26,40 +27,38 @@ const cssRule = (selector, media = null) => {
     } else if (css[i] === '}') {
       depth -= 1;
       if (depth === 0) {
-        blocks.push([prelude, css.slice(start, i)]);
+        const selectors = prelude.split(',').map((s) => s.trim());
+        if (!prelude.startsWith('@') && selectors.includes(selector)) {
+          for (const declaration of css.slice(start, i).split(';')) {
+            const [property, ...value] = declaration.split(':');
+            if (value.length) declarations[property.trim()] = value.join(':').trim();
+          }
+        }
         start = i + 1;
       }
-    }
-  }
-  const scope = media === null
-    ? blocks.filter(([head]) => !head.startsWith('@'))
-    : blocks
-      .filter(([head]) => head === `@media ${media}`)
-      .flatMap(([, body]) => [...body.matchAll(/([^{}]+)\{([^{}]*)\}/g)].map((m) => [m[1].trim(), m[2]]));
-  const declarations = {};
-  for (const [head, body] of scope) {
-    if (!head.split(',').map((s) => s.trim()).includes(selector)) continue;
-    for (const declaration of body.split(';')) {
-      const [property, ...value] = declaration.split(':');
-      if (value.length) declarations[property.trim()] = value.join(':').trim();
     }
   }
   return declarations;
 };
 
-const rgb = (color) => {
+const tokens = cssRule(':root');
+const resolve = (value) => value.replace(/var\((--[\w-]+)\)/g, (_, name) => resolve(tokens[name]));
+
+const rgba = (color) => {
   const short = color.match(/^#([0-9a-f])([0-9a-f])([0-9a-f])$/i);
-  if (short) return short.slice(1).map((digit) => parseInt(digit + digit, 16));
+  if (short) return [...short.slice(1).map((digit) => parseInt(digit + digit, 16)), 1];
   const hex = color.match(/^#([0-9a-f]{6})$/i);
-  if (hex) return [0, 2, 4].map((i) => parseInt(hex[1].slice(i, i + 2), 16));
-  return color.match(/[\d.]+/g).slice(0, 3).map(Number);
+  if (hex) return [...[0, 2, 4].map((i) => parseInt(hex[1].slice(i, i + 2), 16)), 1];
+  const [r, g, b, a = 1] = color.match(/[\d.]+/g).map(Number);
+  return [r, g, b, a];
 };
-const alpha = (color) => {
-  const parts = color.match(/rgba\(([^)]+)\)/);
-  return parts ? Number(parts[1].split(',')[3]) : 1;
+const over = (color, background) => {
+  const [r, g, b, a] = rgba(color);
+  const bg = rgba(background);
+  return `rgb(${[r, g, b].map((v, i) => Math.round(v * a + bg[i] * (1 - a))).join(',')})`;
 };
 const luminance = (color) => {
-  const [r, g, b] = rgb(color).map((v) => {
+  const [r, g, b] = rgba(color).slice(0, 3).map((v) => {
     const c = v / 255;
     return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
   });
@@ -69,70 +68,51 @@ const contrast = (a, b) => {
   const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
   return (hi + 0.05) / (lo + 0.05);
 };
-const blend = (color, opacity, background) => {
-  const [fg, bg] = [rgb(color), rgb(background)];
-  return `rgb(${fg.map((v, i) => Math.round(v * opacity + bg[i] * (1 - opacity))).join(',')})`;
-};
 
 describe('layout and contrast', () => {
-  test('the footer includes its padding in its width at every screen size', () => {
-    expect(cssRule('.footer')['box-sizing']).toBe('border-box');
+  test('every element includes its padding and border in its width', () => {
+    expect(cssRule('*')['box-sizing']).toBe('border-box');
   });
 
-  test('project cards fit inside their slides', () => {
-    // react-slick gives every card width: 100% of its slide, so borders must sit inside that
-    // width and the gap between cards must come from padding on the slide wrapper, not margins.
-    expect(cssRule('.projects-container .project')['box-sizing']).toBe('border-box');
-    const medias = [...read('src', 'App.css').matchAll(/@media ([^{]+)\{/g)].map((m) => m[1].trim());
-    for (const media of [null, ...medias]) {
-      const margin = cssRule('.projects-container .project', media).margin;
-      if (margin !== undefined) expect(margin).toBe('0');
+  test('project cards never force the grid wider than a phone screen', () => {
+    expect(cssRule('.project-grid')['grid-template-columns']).toContain('minmax(min(100%,');
+  });
+
+  test('header links stay readable over any content scrolling underneath', () => {
+    const header = resolve(cssRule('.site-header').background);
+    const link = resolve(cssRule('.nav-list a').color);
+    for (const underneath of ['#ffffff', resolve('var(--color-bg)')]) {
+      expect(contrast(link, over(header, underneath))).toBeGreaterThanOrEqual(4.5);
     }
-    const wrapper = cssRule('.projects .slick-slide > div');
-    expect(wrapper['box-sizing']).toBe('border-box');
-    expect(parseFloat(wrapper.padding.split(/\s+/)[1])).toBeGreaterThan(0);
   });
 
-  test('header links stay readable over every section', () => {
-    const background = cssRule('.header').background;
-    expect(alpha(background)).toBe(1);
-    expect(contrast('#ffffff', background)).toBeGreaterThanOrEqual(4.5);
-  });
-
-  test('carousel arrows and dots stand out from the projects background', () => {
-    const section = cssRule('.projects')['background-color'];
-    const arrow = cssRule('.projects .slick-next:before');
-    expect(Number(arrow.opacity)).toBe(1);
-    expect(contrast(arrow.color, section)).toBeGreaterThanOrEqual(3);
-    const dot = cssRule('.projects .slick-dots li button:before');
-    expect(contrast(blend(dot.color, Number(dot.opacity), section), section)).toBeGreaterThanOrEqual(3);
-  });
-
-  test('carousel arrows fit inside the phone layout', () => {
-    // The arrows sit 25px outside the slider, so the container needs at least that much side padding.
-    const padding = cssRule('.projects-container', '(max-width: 600px)').padding.split(/\s+/);
-    const side = parseFloat(padding[1] ?? padding[0]) * 16;
-    expect(side).toBeGreaterThanOrEqual(25);
+  test('text, accent and focus colors meet WCAG AA on every surface', () => {
+    const surfaces = ['--color-bg', '--color-bg-raised', '--color-surface'];
+    for (const surface of surfaces) {
+      for (const text of ['--color-text', '--color-text-muted', '--color-accent']) {
+        expect(contrast(tokens[text], tokens[surface])).toBeGreaterThanOrEqual(4.5);
+      }
+      expect(contrast(tokens['--color-focus'], tokens[surface])).toBeGreaterThanOrEqual(3);
+    }
+    expect(contrast(tokens['--color-on-accent'], tokens['--color-accent'])).toBeGreaterThanOrEqual(4.5);
+    expect(contrast(tokens['--color-on-accent'], tokens['--color-accent-strong'])).toBeGreaterThanOrEqual(4.5);
   });
 });
 
-describe('projects carousel', () => {
-  test('keeps links in hidden slides out of the tab order', () => {
-    const { container } = render(<Projects />);
-    const slides = [...container.querySelectorAll('.slick-slide')];
-    expect(slides.some((slide) => slide.getAttribute('aria-hidden') === 'true')).toBe(true);
-    for (const slide of slides) {
-      const hidden = slide.getAttribute('aria-hidden') === 'true';
-      for (const link of slide.querySelectorAll('a')) {
-        expect(link.getAttribute('tabindex')).toBe(hidden ? '-1' : null);
-      }
-    }
-  });
-
-  test('names every pagination dot', () => {
+describe('projects', () => {
+  test('shows every project with its topics and a reachable GitHub link', () => {
     render(<Projects />);
-    const dots = screen.getAllByRole('button', { name: /^Projects page \d+$/ });
-    expect(dots.length).toBeGreaterThan(0);
+    for (const project of projects) {
+      expect(screen.getByRole('heading', { level: 3, name: project.name })).toBeInTheDocument();
+      // The visible "View on GitHub" comes first in the accessible name (WCAG 2.5.3 label in name).
+      const link = screen.getByRole('link', { name: `View on GitHub for ${project.name}` });
+      expect(link).toHaveAttribute('href', project.link);
+      expect(link).toHaveAttribute('rel', 'noreferrer');
+      expect(link).not.toHaveAttribute('tabindex', '-1');
+      expect(link.closest('[aria-hidden="true"]')).toBeNull();
+      const topics = screen.getByRole('list', { name: `${project.name} topics` });
+      expect(within(topics).getAllByRole('listitem').map((item) => item.textContent)).toEqual(project.tags);
+    }
   });
 
   test('titles the section like the navigation link', () => {
@@ -142,18 +122,22 @@ describe('projects carousel', () => {
 });
 
 describe('content and semantics', () => {
-  test('lists the documented AI engineering stack', () => {
+  test('lists the documented AI engineering stack in its profile groups', () => {
     render(<Skills />);
-    const list = screen.getByRole('list', { name: 'Skills' });
-    expect(within(list).getAllByRole('listitem').map((item) => item.textContent)).toEqual([
+    const section = screen.getByRole('region', { name: 'Skills' });
+    expect(within(section).getAllByRole('listitem').map((item) => item.textContent)).toEqual([
       'Python', 'PyTorch', 'TensorFlow', 'scikit-learn', 'FastAPI', 'TypeScript',
       'React', 'PostgreSQL', 'Docker', 'Linux', 'Git', 'GitHub Actions',
     ]);
+    for (const group of ['AI & ML', 'Applications & data', 'Delivery']) {
+      expect(within(section).getByRole('list', { name: group })).toBeInTheDocument();
+    }
   });
 
-  test('keeps the decorative About illustration out of the accessibility tree', () => {
-    const { container } = render(<About />);
-    expect(container.querySelector('.about-img img')).toHaveAttribute('alt', '');
+  test('gives every image a text alternative and hides decorative icons', () => {
+    const { container } = render(<App />);
+    for (const image of container.querySelectorAll('img')) expect(image).toHaveAttribute('alt');
+    for (const icon of container.querySelectorAll('svg')) expect(icon).toHaveAttribute('aria-hidden', 'true');
   });
 
   test('starts the heading outline with the page h1', () => {

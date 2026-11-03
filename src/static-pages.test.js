@@ -23,7 +23,12 @@ test('serves a branded 404 page with a way back to the portfolio', () => {
   for (const href of ['/', '/#about', '/#projects', '/#skills']) expect(page).toContain(`href="${href}"`);
 });
 
-test('colors the browser chrome like the header', () => {
-  expect(read('index.html')).toContain('<meta name="theme-color" content="#222222" />');
-  expect(JSON.parse(read('manifest.json')).theme_color).toBe('#222222');
+test('colors the browser chrome with the page background token', () => {
+  const tokens = fs.readFileSync(path.join(__dirname, 'index.css'), 'utf8');
+  const background = tokens.match(/--color-bg:\s*(#[0-9a-f]{6});/i)[1];
+  const manifest = JSON.parse(read('manifest.json'));
+  expect(read('index.html')).toContain(`<meta name="theme-color" content="${background}" />`);
+  expect(read('404.html')).toContain(`<meta name="theme-color" content="${background}" />`);
+  expect(manifest.theme_color).toBe(background);
+  expect(manifest.background_color).toBe(background);
 });
