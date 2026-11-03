@@ -15,40 +15,42 @@ npm ci
 npm start
 ```
 
-This project uses React 18.3 (as locked in `package-lock.json`) and `react-scripts` 5.0.1. Use a Node.js/npm environment compatible with the existing lockfile. Dependency modernization should be validated separately.
+This project uses React 18.3, built with Vite 8 and tested with Vitest 5 (as locked in `package-lock.json`). It needs Node.js 22 (22.12 or later) or 24; CI uses Node 22. `npm start` serves the site at http://localhost:5173 and reloads on save.
 
 ## Commands
 
 | Command | Purpose |
 | --- | --- |
-| `npm start` | Start the development server |
-| `npm test -- --watchAll=false` | Run the test suite once |
+| `npm start` | Start the Vite dev server at http://localhost:5173 |
+| `npm test` | Run the test suite once (`npx vitest` keeps watching) |
+| `npm run lint` | Lint the code with ESLint |
 | `npm run build` | Generate production assets in `build/` |
+| `npm run preview` | Serve the production build locally |
 
 ## Update content
 
 | File | Content |
 | --- | --- |
-| [Body.js](src/components/Body.js) | Hero: role line, name, summary, the two main actions and profile links |
-| [About.js](src/components/About.js) | Biography and the Now, Based in and Education facts |
+| [Body.jsx](src/components/Body.jsx) | Hero: role line, name, summary, the two main actions and profile links |
+| [About.jsx](src/components/About.jsx) | Biography and the Now, Based in and Education facts |
 | [projects.json](src/data/projects.json) | Project names, descriptions, topic tags and repository links |
-| [Skills.js](src/components/Skills.js) | Skill groups (match the GitHub profile's Technical focus) |
-| [Header.js](src/components/Header.js) | Monogram, name and section links; marks the section in view |
-| [Contact.js](src/components/Contact.js) | Email, Copy and LinkedIn actions, GitHub and Medium links |
-| [Footer.js](src/components/Footer.js) | Links to ataturhan.com and Solarity AI, and Back to top |
-| [index.html](public/index.html) | Page title, description, link-preview tags and the no-JavaScript fallback |
+| [Skills.jsx](src/components/Skills.jsx) | Skill groups (match the GitHub profile's Technical focus) |
+| [Header.jsx](src/components/Header.jsx) | Monogram, name and section links; marks the section in view |
+| [Contact.jsx](src/components/Contact.jsx) | Email, Copy and LinkedIn actions, GitHub and Medium links |
+| [Footer.jsx](src/components/Footer.jsx) | Links to ataturhan.com and Solarity AI, and Back to top |
+| [index.html](index.html) | Page title, description, link-preview tags and the no-JavaScript fallback |
 | [404.html](public/404.html) | Page shown for unknown addresses |
 | `public/og-image.jpg`, `favicon.ico`, `logo192.png`, `logo512.png` | Link-preview image and browser and app icons, made from the hero portrait |
 | [index.css](src/index.css) | Design tokens (color, type, spacing, radius) and base styles |
 | [App.css](src/App.css) | Layout and components, built only from the tokens |
 
-Links that open a new tab use [ExternalLink.js](src/components/ExternalLink.js), which adds "(opens in a new tab)" for screen readers.
+Links that open a new tab use [ExternalLink.jsx](src/components/ExternalLink.jsx), which adds "(opens in a new tab)" for screen readers.
 
 Before merging to `main`, run tests and a production build and inspect the page at desktop and mobile sizes: every push to `main` publishes the site.
 
 ## Deployment
 
-[deploy-pages.yml](.github/workflows/deploy-pages.yml) builds the app on every push to `main` and publishes `build/` to GitHub Pages. It can also be run manually from the Actions tab. The repository's Pages source must be **GitHub Actions** (Settings → Pages). The `homepage` field in [package.json](package.json) is `.`, so the build uses relative asset paths and works at any URL. [public/ata-turhan.github.io/index.html](public/ata-turhan.github.io/index.html) redirects the old address to the root.
+[deploy-pages.yml](.github/workflows/deploy-pages.yml) builds the app on every push to `main` and publishes `build/` to GitHub Pages. It can also be run manually from the Actions tab. The repository's Pages source must be **GitHub Actions** (Settings → Pages). [vite.config.js](vite.config.js) sets `base: './'`, so the build uses relative asset paths and works at any URL. [public/ata-turhan.github.io/index.html](public/ata-turhan.github.io/index.html) redirects the old address to the root.
 
 ## License
 
