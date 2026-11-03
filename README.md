@@ -15,7 +15,7 @@ npm ci
 npm start
 ```
 
-This project uses React 18.3, built with Vite 8 and tested with Vitest 5 (as locked in `package-lock.json`). It needs Node.js 22 (22.12 or later) or 24; CI uses Node 22. `npm start` serves the site at http://localhost:5173 and reloads on save.
+This project uses React 18.3, built with Vite 8 and tested with Vitest 5 (as locked in `package-lock.json`). It needs Node.js 22 (22.13 or later) or 24, the range ESLint, Vite and Vitest share, declared in `package.json` `engines`; CI uses Node 22. `npm start` serves the site at http://localhost:5173 and reloads on save.
 
 ## Commands
 
