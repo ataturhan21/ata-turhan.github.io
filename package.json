@@ -1,8 +1,8 @@
 {
-  "name": "ata-turhan.github.io",
+  "name": "ataturhan21.github.io",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ataturhan21.github.io/ata-turhan.github.io/",
+  "homepage": ".",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
