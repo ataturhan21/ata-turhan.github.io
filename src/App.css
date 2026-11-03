@@ -37,6 +37,7 @@
 .section-lead {
   margin-top: var(--space-3);
   color: var(--color-text-muted);
+  text-wrap: balance;
 }
 
 .text-link {
@@ -49,8 +50,11 @@
   transition: color var(--duration) var(--ease);
 }
 
-.text-link:hover {
-  color: var(--color-accent-strong);
+/* Hover styles apply only where a pointer can hover: phones would keep them after a tap. */
+@media (hover: hover) {
+  .text-link:hover {
+    color: var(--color-accent-strong);
+  }
 }
 
 /* Skip link */
@@ -141,9 +145,11 @@
   transition: color var(--duration) var(--ease), background-color var(--duration) var(--ease);
 }
 
-.nav-list a:hover {
-  color: var(--color-text);
-  background: var(--color-surface);
+@media (hover: hover) {
+  .nav-list a:hover {
+    color: var(--color-text);
+    background: var(--color-surface);
+  }
 }
 
 .nav-list a[aria-current="true"] {
@@ -192,8 +198,10 @@
   color: var(--color-on-accent);
 }
 
-.button--primary:hover {
-  background: var(--color-accent-strong);
+@media (hover: hover) {
+  .button--primary:hover {
+    background: var(--color-accent-strong);
+  }
 }
 
 .button--secondary {
@@ -201,9 +209,11 @@
   color: var(--color-text);
 }
 
-.button--secondary:hover {
-  border-color: var(--color-accent);
-  background: var(--color-surface);
+@media (hover: hover) {
+  .button--secondary:hover {
+    border-color: var(--color-accent);
+    background: var(--color-surface);
+  }
 }
 
 /* Profile icon links */
@@ -226,10 +236,12 @@
     background-color var(--duration) var(--ease);
 }
 
-.social-links a:hover {
-  border-color: var(--color-border-strong);
-  background: var(--color-surface);
-  color: var(--color-text);
+@media (hover: hover) {
+  .social-links a:hover {
+    border-color: var(--color-border-strong);
+    background: var(--color-surface);
+    color: var(--color-text);
+  }
 }
 
 /* Hero */
@@ -238,7 +250,7 @@
   border-bottom: 1px solid var(--color-border);
   background:
     radial-gradient(60rem 30rem at 85% -10%, var(--color-accent-glow), transparent 60%),
-    radial-gradient(40rem 24rem at -10% 110%, rgba(233, 181, 106, 0.07), transparent 60%),
+    radial-gradient(40rem 24rem at -10% 110%, var(--color-accent-glow-soft), transparent 60%),
     var(--color-bg);
 }
 
@@ -255,6 +267,7 @@
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+  text-wrap: balance;
 }
 
 .hero__title {
@@ -278,6 +291,7 @@
   color: var(--color-text-muted);
   font-size: var(--text-lg);
   line-height: 1.55;
+  text-wrap: balance;
 }
 
 .hero__actions {
@@ -301,7 +315,7 @@
   width: 100%;
   border: 1px solid var(--color-accent-ring);
   border-radius: var(--radius-lg);
-  box-shadow: 0 0 0 8px rgba(233, 181, 106, 0.06), 0 40px 90px -40px rgba(0, 0, 0, 0.95);
+  box-shadow: 0 0 0 8px var(--color-accent-glow-soft), 0 40px 90px -40px rgba(0, 0, 0, 0.95);
 }
 
 /* Facts strip under the hero, as on ataturhan.com. */
@@ -375,9 +389,15 @@
   gap: var(--space-5);
 }
 
+/* Each card fills its grid cell, so cards in a row end together and their tags and links line up. */
+.project-grid > li {
+  display: flex;
+}
+
 .project-card {
   position: relative;
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: var(--space-3);
   padding: var(--space-6) var(--space-5) var(--space-5);
@@ -388,9 +408,11 @@
   transition: border-color var(--duration) var(--ease), transform var(--duration) var(--ease);
 }
 
-.project-card:hover {
-  border-color: var(--color-border-strong);
-  transform: translateY(-2px);
+@media (hover: hover) {
+  .project-card:hover {
+    border-color: var(--color-border-strong);
+    transform: translateY(-2px);
+  }
 }
 
 .project-card:focus-within {
@@ -408,6 +430,7 @@
 .project-card__desc {
   color: var(--color-text-muted);
   font-size: var(--text-base);
+  text-wrap: balance;
 }
 
 .tag-list {
@@ -444,8 +467,10 @@
   transition: transform var(--duration) var(--ease);
 }
 
-.project-card:hover .project-card__link svg {
-  transform: translate(2px, -2px);
+@media (hover: hover) {
+  .project-card:hover .project-card__link svg {
+    transform: translate(2px, -2px);
+  }
 }
 
 .projects-more {
@@ -511,7 +536,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   background:
-    radial-gradient(40rem 20rem at 100% 0%, rgba(233, 181, 106, 0.14), transparent 60%),
+    radial-gradient(40rem 20rem at 100% 0%, var(--color-accent-glow), transparent 60%),
     var(--color-surface);
   box-shadow: var(--shadow-card);
 }
@@ -531,6 +556,11 @@
   flex: none;
   max-width: 100%;
   overflow-wrap: anywhere;
+}
+
+/* Copy holds the width of its "Copied" label, so the confirmation doesn't shift LinkedIn along. */
+.contact-actions button {
+  min-width: 8rem;
 }
 
 .contact-status {
@@ -574,8 +604,10 @@
   transition: color var(--duration) var(--ease);
 }
 
-.footer-links a:hover {
-  color: var(--color-text);
+@media (hover: hover) {
+  .footer-links a:hover {
+    color: var(--color-text);
+  }
 }
 
 /* Tablets and phones */
