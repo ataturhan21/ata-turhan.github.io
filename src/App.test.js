@@ -6,10 +6,15 @@ jest.mock('react-slick', () => ({ children }) => <div>{children}</div>);
 test('renders the portfolio identity and working contact destinations', () => {
   render(<App />);
   expect(screen.getByText('Ata Turhan')).toBeInTheDocument();
-  expect(screen.getByRole('link', { name: 'Ata Turhan on GitHub' }))
-    .toHaveAttribute('href', 'https://github.com/ataturhan21');
-  expect(screen.getByRole('link', { name: 'Ata Turhan on LinkedIn' }))
-    .toHaveAttribute('href', 'https://www.linkedin.com/in/ataturhan21/');
+  // The hero and the footer both link the profiles; every copy must point to the right place.
+  for (const [name, href] of [
+    ['Ata Turhan on GitHub', 'https://github.com/ataturhan21'],
+    ['Ata Turhan on LinkedIn', 'https://www.linkedin.com/in/ataturhan21/'],
+  ]) {
+    const links = screen.getAllByRole('link', { name });
+    expect(links).toHaveLength(2);
+    for (const link of links) expect(link).toHaveAttribute('href', href);
+  }
   expect(screen.getByRole('link', { name: 'Image Captioner on GitHub' }))
     .toHaveAttribute('href', 'https://github.com/ataturhan21/ImageCaptioner-ConvNeXt_Transformer');
 });

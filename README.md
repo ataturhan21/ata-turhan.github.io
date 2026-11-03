@@ -32,9 +32,11 @@ This project uses React 18.2 and `react-scripts` 5.0.1. Use a Node.js/npm enviro
 | [Body.js](src/components/Body.js) | Name, professional headline, and primary social links |
 | [About.js](src/components/About.js) | Biography |
 | [projects.json](src/data/projects.json) | Project names, descriptions, and repository links |
-| [Skills.js](src/components/Skills.js) | Skill cards |
-| [Footer.js](src/components/Footer.js) | Email and writing link |
-| [index.html](public/index.html) | Page title and search-description metadata |
+| [Skills.js](src/components/Skills.js) | Skill list (matches the GitHub profile's Technical focus) |
+| [Footer.js](src/components/Footer.js) | Email, GitHub, LinkedIn and Medium links |
+| [index.html](public/index.html) | Page title, description, link-preview tags and the no-JavaScript fallback |
+| [404.html](public/404.html) | Page shown for unknown addresses |
+| `public/og-image.jpg`, `favicon.ico`, `logo192.png`, `logo512.png` | Link-preview image and browser and app icons, made from the hero portrait |
 | [App.css](src/App.css) | Layout and responsive styling |
 
 Before merging to `main`, run tests and a production build and inspect the page at desktop and mobile sizes: every push to `main` publishes the site.
