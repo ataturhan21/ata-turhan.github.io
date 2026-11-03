@@ -50,8 +50,11 @@
   transition: color var(--duration) var(--ease);
 }
 
-.text-link:hover {
-  color: var(--color-accent-strong);
+/* Hover styles apply only where a pointer can hover: phones would keep them after a tap. */
+@media (hover: hover) {
+  .text-link:hover {
+    color: var(--color-accent-strong);
+  }
 }
 
 /* Skip link */
@@ -142,9 +145,11 @@
   transition: color var(--duration) var(--ease), background-color var(--duration) var(--ease);
 }
 
-.nav-list a:hover {
-  color: var(--color-text);
-  background: var(--color-surface);
+@media (hover: hover) {
+  .nav-list a:hover {
+    color: var(--color-text);
+    background: var(--color-surface);
+  }
 }
 
 .nav-list a[aria-current="true"] {
@@ -193,8 +198,10 @@
   color: var(--color-on-accent);
 }
 
-.button--primary:hover {
-  background: var(--color-accent-strong);
+@media (hover: hover) {
+  .button--primary:hover {
+    background: var(--color-accent-strong);
+  }
 }
 
 .button--secondary {
@@ -202,9 +209,11 @@
   color: var(--color-text);
 }
 
-.button--secondary:hover {
-  border-color: var(--color-accent);
-  background: var(--color-surface);
+@media (hover: hover) {
+  .button--secondary:hover {
+    border-color: var(--color-accent);
+    background: var(--color-surface);
+  }
 }
 
 /* Profile icon links */
@@ -227,10 +236,12 @@
     background-color var(--duration) var(--ease);
 }
 
-.social-links a:hover {
-  border-color: var(--color-border-strong);
-  background: var(--color-surface);
-  color: var(--color-text);
+@media (hover: hover) {
+  .social-links a:hover {
+    border-color: var(--color-border-strong);
+    background: var(--color-surface);
+    color: var(--color-text);
+  }
 }
 
 /* Hero */
@@ -391,9 +402,11 @@
   transition: border-color var(--duration) var(--ease), transform var(--duration) var(--ease);
 }
 
-.project-card:hover {
-  border-color: var(--color-border-strong);
-  transform: translateY(-2px);
+@media (hover: hover) {
+  .project-card:hover {
+    border-color: var(--color-border-strong);
+    transform: translateY(-2px);
+  }
 }
 
 .project-card:focus-within {
@@ -448,8 +461,10 @@
   transition: transform var(--duration) var(--ease);
 }
 
-.project-card:hover .project-card__link svg {
-  transform: translate(2px, -2px);
+@media (hover: hover) {
+  .project-card:hover .project-card__link svg {
+    transform: translate(2px, -2px);
+  }
 }
 
 .projects-more {
@@ -578,8 +593,10 @@
   transition: color var(--duration) var(--ease);
 }
 
-.footer-links a:hover {
-  color: var(--color-text);
+@media (hover: hover) {
+  .footer-links a:hover {
+    color: var(--color-text);
+  }
 }
 
 /* Tablets and phones */
