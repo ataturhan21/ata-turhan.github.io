@@ -2,7 +2,7 @@ const Header = () => {
     return (
         <header className="header">
                 <div className="header-logo">
-                    <a href="#app"><h3 className="header-name">ATA TURHAN</h3></a>
+                    <a href="#app"><span className="header-name">ATA TURHAN</span></a>
                 </div>
                 <nav className="header-container" aria-label="Primary">
                     <div className="nav-item"><a href="#about">About</a></div>

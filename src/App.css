@@ -16,7 +16,7 @@ a, a:active, a:hover {
   right: 0;
   height: 5rem;
   z-index: 2;
-  background: rgba(0, 0, 0, 0.3);
+  background: #222;
 }
 
 .header-logo {
@@ -27,6 +27,9 @@ a, a:active, a:hover {
 }
 
 .header-name {
+  display: block;
+  margin: 1rem 0;
+  font-weight: bold;
   color: #edf2f4;
   border: 3px solid #edf2f4;
   padding: 0.7em;
@@ -103,6 +106,7 @@ a, a:active, a:hover {
 
 .body-img {
   width: 100%;
+  height: auto;
   transform: scale(.95);
   border-radius: 50%;
 }
@@ -188,6 +192,7 @@ a, a:active, a:hover {
 }
 .about .about-img .about-img-wrapper img {
   width: 60%;
+  height: auto;
 }
 /* End About Section  */
 
@@ -208,10 +213,11 @@ a, a:active, a:hover {
 }
 .projects-container .project {
   position: relative;
+  box-sizing: border-box;
   height: 38vh;
   border: 0.3rem solid black;
   border-radius: 20px;
-  margin: 0 1rem 0 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -241,6 +247,7 @@ a, a:active, a:hover {
   display: block;
   margin: 0 auto;
   width: 31%;
+  height: auto;
 }
 .name {
   color: #2b2d42;
@@ -282,13 +289,34 @@ a, a:active, a:hover {
   border-color: #ef233c;
   color: white;
 }
-@media (min-width: 500px) and (max-width: 650px) { 
+/* react-slick sets each card to the full slide width, so the gap between cards is padding on the slide wrapper. */
+.projects .slick-slide > div {
+  box-sizing: border-box;
+  padding: 0 0.5rem;
+}
+/* Carousel controls: dark on the beige section instead of slick-theme's white. */
+.projects .slick-prev:before,
+.projects .slick-next:before {
+  color: #2b2d42;
+  opacity: 1;
+}
+.projects .slick-disabled:before {
+  opacity: 0.35;
+}
+.projects .slick-dots li button:before {
+  color: #2b2d42;
+  opacity: 0.6;
+}
+.projects .slick-dots li.slick-active button:before {
+  opacity: 1;
+}
+@media (min-width: 500px) and (max-width: 650px) {
   .projects-container .project {
     position: relative;
     height: 38vh;
     border: 0.3rem solid black;
     border-radius: 20px;
-    margin: 0 1rem 0 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -354,7 +382,7 @@ a, a:active, a:hover {
     height: 38vh;
     border: 0.3rem solid black;
     border-radius: 20px;
-    margin: 0 1rem 0 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -428,7 +456,7 @@ a, a:active, a:hover {
     height: 38vh;
     border: 0.3rem solid black;
     border-radius: 20px;
-    margin: 0 1rem 0 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -519,6 +547,7 @@ a, a:active, a:hover {
     width: 10rem;
   border-radius: 8px;
   color: #ffffff;
+  font-style: italic;
 }
 
 .skill-icon {
@@ -534,6 +563,7 @@ a, a:active, a:hover {
   justify-content: space-evenly;
   align-items: center;
   margin: 2em 0;
+  padding: 0;
 }
 
 .skill {
@@ -591,6 +621,7 @@ a, a:active, a:hover {
 
 /* Footer section  */
 .footer {
+  box-sizing: border-box;
   min-height: 20vh;
   width: 100%;
   background-color: black;
@@ -691,7 +722,7 @@ button:focus-visible {
   .about-heading, .title { font-size: 2.5rem; }
   .about-info { flex-direction: column; align-items: center; }
   .about .about-info .about-desc { max-width: 100%; font-size: 1.2rem; }
-  .projects-container { padding: 1.5rem; }
+  .projects-container { padding: 1.5rem 2rem; }
   .footer { box-sizing: border-box; padding: 3rem 1rem; }
   .footer .footer-contact-info .footer-contact-access {
     font-size: 1rem;

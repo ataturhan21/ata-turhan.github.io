@@ -1,53 +1,36 @@
-import { FaJs, FaReact, FaHtml5, FaCss3, FaGithub, FaDocker } from "react-icons/fa";
+import { FaDocker, FaGitAlt, FaLinux, FaPython, FaReact } from "react-icons/fa";
+import { SiFastapi, SiGithubactions, SiPostgresql, SiPytorch, SiScikitlearn, SiTensorflow, SiTypescript } from "react-icons/si";
+
+// The same stack as the GitHub profile's Technical focus.
+const skills = [
+    { name: "Python", icon: FaPython },
+    { name: "PyTorch", icon: SiPytorch },
+    { name: "TensorFlow", icon: SiTensorflow },
+    { name: "scikit-learn", icon: SiScikitlearn },
+    { name: "FastAPI", icon: SiFastapi },
+    { name: "TypeScript", icon: SiTypescript },
+    { name: "React", icon: FaReact },
+    { name: "PostgreSQL", icon: SiPostgresql },
+    { name: "Docker", icon: FaDocker },
+    { name: "Linux", icon: FaLinux },
+    { name: "Git", icon: FaGitAlt },
+    { name: "GitHub Actions", icon: SiGithubactions },
+];
 
 const Skills = () => {
-    const skillsArr = [
-        {
-            "name" : 'JavaScript',
-            "icon" : FaJs
-        },
-        {
-            "name" : "HTML",
-            "icon" : FaHtml5
-        },
-        {
-            "name" : "CSS",
-            "icon" : FaCss3
-        },
-        {
-            "name" : "Git",
-            "icon" : FaGithub
-        },
-        {
-            "name" : "Reactjs",
-            "icon" : FaReact
-        },
-        {
-            "name" : "Docker",
-            "icon" : FaDocker
-        }
-    ];
-
     return (
         <div id='skills' className='skills'>
-            <h2 className='title'>Skills</h2>
-            <div className='skill-holder'>
+            <h2 className='title' id='skills-heading'>Skills</h2>
+            <ul className='skill-holder' aria-labelledby='skills-heading'>
                 {
-                    skillsArr.map((skill, index) => {
-                        const Icon = skill.icon;
-                        return (
-                            <i key={index} className='skill-cards'>
-                                <Icon className='skill-icon'/>
-                                <p
-                                className="skill"
-                                >
-                                    {skill.name}
-                                </p>
-                            </i>
-                        )
-                    })                    
+                    skills.map(({ name, icon: Icon }) => (
+                        <li key={name} className='skill-cards'>
+                            <Icon className='skill-icon' aria-hidden="true" focusable="false" />
+                            <p className="skill">{name}</p>
+                        </li>
+                    ))
                 }
-            </div>
+            </ul>
         </div>
     )
 }

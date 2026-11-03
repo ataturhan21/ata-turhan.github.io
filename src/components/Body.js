@@ -1,12 +1,12 @@
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import Avatar from '../assets/pfp.png';
+import Avatar from '../assets/pfp.webp';
 
 const Body = () => {
     return (
         <div id="body" className="body">
             <div className="body-container">
                 <div className="body-profile">
-                    <img className="body-img" alt="Ata Turhan" src={Avatar} />
+                    <img className="body-img" alt="Ata Turhan" src={Avatar} width="600" height="600" fetchpriority="high" />
 
                     <div className="body-content">
                         <h1 className="body-headline">Ata Turhan</h1>
