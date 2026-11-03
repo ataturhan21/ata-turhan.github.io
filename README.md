@@ -2,15 +2,15 @@
 
 A React portfolio presenting Ata Turhan's background, selected AI engineering projects, skills, and contact links.
 
-Live site: https://ataturhan21.github.io/ata-turhan.github.io/
+Live site: https://ataturhan21.github.io/
 
-The repository retains its historical name `ata-turhan.github.io`. Its current owner is [ataturhan21](https://github.com/ataturhan21), so GitHub Pages serves it under the `/ata-turhan.github.io/` path rather than at the domain root.
+The repository is named `ataturhan21.github.io`, so GitHub Pages serves it at the domain root. The old address, https://ataturhan21.github.io/ata-turhan.github.io/, redirects there.
 
 ## Local development
 
 ```bash
-git clone https://github.com/ataturhan21/ata-turhan.github.io.git
-cd ata-turhan.github.io
+git clone https://github.com/ataturhan21/ataturhan21.github.io.git
+cd ataturhan21.github.io
 npm ci
 npm start
 ```
@@ -43,7 +43,7 @@ Project card artwork is decorative; project descriptions and GitHub links identi
 
 ## Deployment
 
-[deploy-pages.yml](.github/workflows/deploy-pages.yml) builds the app on every push to `main` and publishes `build/` to GitHub Pages. It can also be run manually from the Actions tab. The repository's Pages source must be **GitHub Actions** (Settings → Pages). The `homepage` field in [package.json](package.json) sets the asset base path, so update it if the Pages URL changes.
+[deploy-pages.yml](.github/workflows/deploy-pages.yml) builds the app on every push to `main` and publishes `build/` to GitHub Pages. It can also be run manually from the Actions tab. The repository's Pages source must be **GitHub Actions** (Settings → Pages). The `homepage` field in [package.json](package.json) is `.`, so the build uses relative asset paths and works at any URL. [public/ata-turhan.github.io/index.html](public/ata-turhan.github.io/index.html) redirects the old address to the root.
 
 ## License
 
