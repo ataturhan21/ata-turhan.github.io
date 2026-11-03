@@ -10,6 +10,19 @@ test('serves a branded 404 page with a way back to the portfolio', () => {
   for (const href of ['/', '/#about', '/#projects', '/#skills', '/#contact']) expect(page).toContain(`href="${href}"`);
 });
 
+test('sets the 404 page in the site fonts and eyebrow style', () => {
+  const page = read('public', '404.html');
+  const css = fs.readFileSync(path.join(__dirname, 'index.css'), 'utf8');
+  // The same font files as the site; absolute paths, because the page is served at any depth.
+  for (const file of ['/fonts/manrope-variable.woff2', '/fonts/cormorant-garamond-medium.woff2']) {
+    expect(css).toContain(`url("${file}")`);
+    expect(page).toContain(`url("${file}")`);
+  }
+  expect(page).toMatch(/body \{[^}]*font-family: "Manrope"/);
+  expect(page).toMatch(/h1 \{[^}]*font-family: "Cormorant Garamond"[^}]*font-weight: 500/);
+  expect(page).toMatch(/\.eyebrow \{[^}]*letter-spacing: 0\.18em; text-transform: uppercase/);
+});
+
 // 404.html can't use the CSS custom properties, so it repeats their values; the brand refresh in
 // #63 missed one, which left the old gold on the page.
 test('uses only the design token colors on the 404 page', () => {
