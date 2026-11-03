@@ -136,9 +136,12 @@
   padding: 0 var(--space-5);
   border: 1px solid transparent;
   border-radius: var(--radius-full);
+  background: transparent;
+  font-family: inherit;
   font-size: var(--text-base);
   font-weight: 600;
   text-decoration: none;
+  cursor: pointer;
   transition: background-color var(--duration) var(--ease), border-color var(--duration) var(--ease),
     color var(--duration) var(--ease), transform var(--duration) var(--ease);
 }
@@ -451,6 +454,17 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
+}
+
+.contact-status {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.contact-status__address {
+  color: var(--color-text);
+  font-weight: 600;
+  user-select: all;
 }
 
 /* Footer */
