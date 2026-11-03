@@ -153,13 +153,24 @@ describe('content and semantics', () => {
   test('lists the documented AI engineering stack in its profile groups', () => {
     render(<Skills />);
     const section = screen.getByRole('region', { name: 'Skills' });
-    expect(within(section).getAllByRole('listitem').map((item) => item.textContent)).toEqual([
-      'Python', 'PyTorch', 'TensorFlow', 'scikit-learn', 'FastAPI', 'TypeScript',
-      'React', 'PostgreSQL', 'Docker', 'Linux', 'Git', 'GitHub Actions',
-    ]);
-    for (const group of ['AI & ML', 'Applications & data', 'Delivery']) {
-      expect(within(section).getByRole('list', { name: group })).toBeInTheDocument();
+    // The same six groups and skills as the GitHub profile's Technical focus.
+    const groups = {
+      Languages: ['Python', 'TypeScript', 'JavaScript', 'Java', 'SQL', 'Bash'],
+      'Machine learning': ['PyTorch', 'TensorFlow', 'Keras', 'scikit-learn', 'OpenCV', 'MLflow'],
+      'LLMs & agents': ['Hugging Face', 'LangChain', 'LangGraph', 'ChromaDB', 'OpenAI API'],
+      'Data & analysis': ['pandas', 'NumPy', 'SciPy', 'Matplotlib', 'Plotly', 'Jupyter'],
+      'Applications & databases': [
+        'FastAPI', 'Flask', 'Spring Boot', 'React', 'Node.js', 'PostgreSQL', 'MySQL', 'MongoDB', 'Apache Kafka',
+      ],
+      'Cloud & delivery': [
+        'Docker', 'Linux', 'Git', 'GitHub Actions', 'Microsoft Azure', 'Jenkins', 'Prometheus', 'Grafana',
+      ],
+    };
+    for (const [group, skills] of Object.entries(groups)) {
+      const list = within(section).getByRole('list', { name: group });
+      expect(within(list).getAllByRole('listitem').map((item) => item.textContent)).toEqual(skills);
     }
+    expect(within(section).getAllByRole('list')).toHaveLength(6);
   });
 
   test('gives every image a text alternative and hides decorative icons', () => {
