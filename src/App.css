@@ -530,6 +530,25 @@
   }
 }
 
+/* Touch screens: standalone links get 44 px targets (WCAG 2.5.5, Apple HIG). */
+@media (pointer: coarse) {
+  .wordmark,
+  .nav-list a,
+  .footer-links a,
+  .projects-more .text-link {
+    min-height: 2.75rem;
+  }
+
+  .wordmark {
+    min-width: 2.75rem;
+  }
+
+  .nav-list a {
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
 /* The header stays one row down to 320 px: links tighten, then the monogram stands in for the name. */
 @media (max-width: 40rem) {
   .site-header__inner {

@@ -10,9 +10,8 @@ const root = path.join(__dirname, '..');
 const read = (...parts) => fs.readFileSync(path.join(root, ...parts), 'utf8');
 const stylesheet = () => (read('src', 'index.css') + read('src', 'App.css')).replace(/\/\*[\s\S]*?\*\//g, '');
 
-// Declarations for a selector at the top level of the stylesheets (outside @media and @supports).
-const cssRule = (selector) => {
-  const css = stylesheet();
+// Declarations for a selector at the top level of `css` (outside @media and @supports).
+const rulesIn = (css, selector) => {
   const declarations = {};
   let depth = 0;
   let start = 0;
@@ -37,6 +36,23 @@ const cssRule = (selector) => {
         start = i + 1;
       }
     }
+  }
+  return declarations;
+};
+const cssRule = (selector) => rulesIn(stylesheet(), selector);
+
+// Declarations for a selector inside the stylesheets' `@media <query>` blocks.
+const mediaRule = (query, selector) => {
+  const css = stylesheet();
+  const declarations = {};
+  for (let at = css.indexOf(`@media ${query}`); at !== -1; at = css.indexOf(`@media ${query}`, at + 1)) {
+    const open = css.indexOf('{', at);
+    let close = open + 1;
+    for (let depth = 1; depth > 0; close += 1) {
+      if (css[close] === '{') depth += 1;
+      if (css[close] === '}') depth -= 1;
+    }
+    Object.assign(declarations, rulesIn(css.slice(open + 1, close - 1), selector));
   }
   return declarations;
 };
@@ -82,6 +98,12 @@ describe('layout and contrast', () => {
     const css = stylesheet();
     expect(css.match(/--header-height:/g)).toHaveLength(1);
     expect(css).not.toMatch(/\.site-header__inner\s*\{[^}]*flex-wrap:\s*wrap/);
+  });
+
+  test('gives standalone links 44 px touch targets on touch screens', () => {
+    for (const selector of ['.wordmark', '.nav-list a', '.footer-links a', '.projects-more .text-link']) {
+      expect(mediaRule('(pointer: coarse)', selector)['min-height']).toBe('2.75rem');
+    }
   });
 
   test('header links stay readable over any content scrolling underneath', () => {
