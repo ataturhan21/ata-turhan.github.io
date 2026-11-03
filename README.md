@@ -15,7 +15,7 @@ npm ci
 npm start
 ```
 
-This project uses React 18.2 and `react-scripts` 5.0.1. Use a Node.js/npm environment compatible with the existing lockfile. Dependency modernization should be validated separately.
+This project uses React 18.3 (as locked in `package-lock.json`) and `react-scripts` 5.0.1. Use a Node.js/npm environment compatible with the existing lockfile. Dependency modernization should be validated separately.
 
 ## Commands
 
@@ -33,13 +33,16 @@ This project uses React 18.2 and `react-scripts` 5.0.1. Use a Node.js/npm enviro
 | [About.js](src/components/About.js) | Biography and the Now, Based in and Education facts |
 | [projects.json](src/data/projects.json) | Project names, descriptions, topic tags and repository links |
 | [Skills.js](src/components/Skills.js) | Skill groups (match the GitHub profile's Technical focus) |
-| [Contact.js](src/components/Contact.js) | Email and LinkedIn actions, GitHub and Medium links |
-| [Footer.js](src/components/Footer.js) | Links to ataturhan.com and Solarity AI |
+| [Header.js](src/components/Header.js) | Monogram, name and section links; marks the section in view |
+| [Contact.js](src/components/Contact.js) | Email, Copy and LinkedIn actions, GitHub and Medium links |
+| [Footer.js](src/components/Footer.js) | Links to ataturhan.com and Solarity AI, and Back to top |
 | [index.html](public/index.html) | Page title, description, link-preview tags and the no-JavaScript fallback |
 | [404.html](public/404.html) | Page shown for unknown addresses |
 | `public/og-image.jpg`, `favicon.ico`, `logo192.png`, `logo512.png` | Link-preview image and browser and app icons, made from the hero portrait |
 | [index.css](src/index.css) | Design tokens (color, type, spacing, radius) and base styles |
 | [App.css](src/App.css) | Layout and components, built only from the tokens |
+
+Links that open a new tab use [ExternalLink.js](src/components/ExternalLink.js), which adds "(opens in a new tab)" for screen readers.
 
 Before merging to `main`, run tests and a production build and inspect the page at desktop and mobile sizes: every push to `main` publishes the site.
 

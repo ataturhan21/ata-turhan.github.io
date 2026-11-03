@@ -1,5 +1,6 @@
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import Avatar from '../assets/pfp.webp';
+import ExternalLink from './ExternalLink';
 
 const Body = () => {
     return (
@@ -14,8 +15,8 @@ const Body = () => {
                         <a className="button button--secondary" href="#contact">Get in touch</a>
                     </div>
                     <ul className="social-links">
-                        <li><a href="https://github.com/ataturhan21" target="_blank" rel="noreferrer" aria-label="Ata Turhan on GitHub"><FaGithub aria-hidden="true" focusable="false" /></a></li>
-                        <li><a href="https://www.linkedin.com/in/ataturhan21/" target="_blank" rel="noreferrer" aria-label="Ata Turhan on LinkedIn"><FaLinkedin aria-hidden="true" focusable="false" /></a></li>
+                        <li><ExternalLink href="https://github.com/ataturhan21" label="Ata Turhan on GitHub"><FaGithub aria-hidden="true" focusable="false" /></ExternalLink></li>
+                        <li><ExternalLink href="https://www.linkedin.com/in/ataturhan21/" label="Ata Turhan on LinkedIn"><FaLinkedin aria-hidden="true" focusable="false" /></ExternalLink></li>
                     </ul>
                 </div>
                 <div className="hero__portrait">

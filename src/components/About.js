@@ -1,3 +1,5 @@
+import ExternalLink from './ExternalLink';
+
 const About = () => {
     return (
         <section id="about" className="section" aria-labelledby="about-title">
@@ -11,7 +13,7 @@ const About = () => {
                         <div className="fact">
                             <dt>Now</dt>
                             <dd>AI Engineer &amp; Manager at HP</dd>
-                            <dd>Founder &amp; CEO of <a className="text-link" href="https://solarityai.com/" target="_blank" rel="noreferrer">Solarity AI</a></dd>
+                            <dd>Founder &amp; CEO of <ExternalLink className="text-link" href="https://solarityai.com/">Solarity AI</ExternalLink></dd>
                         </div>
                         <div className="fact">
                             <dt>Based in</dt>
