@@ -40,6 +40,7 @@ This project uses React 18.3, built with Vite 8 and tested with Vitest 5 (as loc
 | [Footer.jsx](src/components/Footer.jsx) | Links to ataturhan.com and Solarity AI, and Back to top |
 | [index.html](index.html) | Page title, description, link-preview tags and structured data |
 | [404.html](public/404.html) | Page shown for unknown addresses |
+| [robots.txt](public/robots.txt), [sitemap.xml](public/sitemap.xml) | Crawler rules and the one-page sitemap they point to |
 | `src/assets/pfp.webp`, `pfp-480.webp`, `pfp-360.webp` | Hero portrait (720, 480 and 360 px wide; the browser picks the smallest that stays sharp) |
 | `public/og-image.jpg`, `favicon.ico`, `logo192.png`, `logo512.png` | Link-preview card and browser and app icons, made from the hero portrait |
 | `public/fonts/` | Cormorant Garamond (headings) and Manrope (text), self-hosted under the OFL; see `LICENSE.txt` there |

@@ -40,3 +40,18 @@ test('describes the person behind the page with links the page already shows', (
   for (const link of person.sameAs) expect(hrefs).toContain(link);
   expect(person.worksFor.map((org) => org.name)).toEqual(['HP', 'Solarity AI']);
 });
+
+test('gives search engines a description, an image and a sitemap from what the page already has', () => {
+  const person = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
+  const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)[1];
+  // The description is the page description's own words, and the image is the preview card.
+  expect(html.match(/name="description"\s+content="([^"]*)"/)[1]).toContain(person.description.replace(/\.$/, ''));
+  expect(person.image).toBe(meta('property', 'og:image'));
+  expect(fs.existsSync(path.join(root, 'public', person.image.replace(canonical, '')))).toBe(true);
+  expect(meta('property', 'og:site_name')).toBe(person.name);
+
+  const robots = fs.readFileSync(path.join(root, 'public', 'robots.txt'), 'utf8');
+  expect(robots).toContain(`Sitemap: ${canonical}sitemap.xml`);
+  const sitemap = fs.readFileSync(path.join(root, 'public', 'sitemap.xml'), 'utf8');
+  expect([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1])).toEqual([canonical]);
+});
