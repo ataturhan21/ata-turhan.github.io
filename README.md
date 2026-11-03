@@ -49,7 +49,7 @@ This project uses React 18.3, built with Vite 8 and tested with Vitest 5 (as loc
 
 Links that open a new tab use [ExternalLink.jsx](src/components/ExternalLink.jsx), which adds "(opens in a new tab)" for screen readers.
 
-`npm run build` also renders the page to HTML with [entry-server.jsx](src/entry-server.jsx) and [prerender.js](scripts/prerender.js), so the whole page shows before the script runs, and without it; React then attaches to that HTML. Anything a component renders must therefore come out the same on the server and in the browser (read `window` or the clock only after the first render, as `Footer.jsx` does for the year), or the tests fail with a hydration warning.
+`npm run build` also renders the page to HTML with [entry-server.jsx](src/entry-server.jsx) and [prerender.js](scripts/prerender.js), so the whole page shows before the script runs, and without it; React then attaches to that HTML. Anything a component renders must therefore come out the same on the server and in the browser, or the tests fail with a hydration warning: take browser-only values, such as the clock, through [useClientValue.js](src/useClientValue.js), as `Footer.jsx` does for the year. The skill logos stay out of the HTML the same way, which keeps the page under one round trip (a test checks it stays under 10 KB gzipped).
 
 Before merging to `main`, run tests and a production build and inspect the page at desktop and mobile sizes: every push to `main` that passes lint and tests publishes the site.
 

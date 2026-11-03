@@ -1,3 +1,4 @@
+import { gzipSync } from 'zlib';
 import { StrictMode } from 'react';
 import { hydrateRoot } from 'react-dom/client';
 import { act, screen } from '@testing-library/react';
@@ -20,12 +21,23 @@ test('shows who this is, the projects and how to get in touch without JavaScript
   for (const href of contacts) expect(html).toContain(`href="${href}"`);
 });
 
-test('hydrates the pre-rendered page without a mismatch', async () => {
+// About 14 KB fits in the first round trip of a new connection; past that the page arrives later
+// than the client-rendered one did. The skill logos stay out of the HTML for that reason.
+test('keeps the pre-rendered page within the first round trip', () => {
+  expect(gzipSync(render()).length).toBeLessThan(10 * 1024);
+});
+
+test('hydrates the pre-rendered page without a mismatch, then adds the skill logos', async () => {
   const container = document.createElement('div');
   container.innerHTML = render();
   document.body.append(container);
+  const logos = () => [...container.querySelectorAll('#skills .chip svg')];
+  expect(logos()).toHaveLength(12);
+  expect(logos().every((logo) => !logo.hasChildNodes())).toBe(true);
   // A mismatch makes React log an error, which fails the test (setupTests.js).
   await act(async () => hydrateRoot(container, <StrictMode><App /></StrictMode>));
+  expect(logos()).toHaveLength(12);
+  expect(logos().every((logo) => logo.hasChildNodes())).toBe(true);
   expect(screen.getByRole('contentinfo')).toHaveTextContent(`© ${new Date().getFullYear()} Ata Turhan`);
   container.remove();
 });
