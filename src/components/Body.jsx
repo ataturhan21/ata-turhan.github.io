@@ -29,7 +29,7 @@ const Body = () => {
             <div className="container">
                 <ul className="hero-facts" aria-label="Highlights">
                     <li><FiMonitor aria-hidden="true" focusable="false" /> AI Engineer &amp; Manager at HP</li>
-                    <li><FiSun aria-hidden="true" focusable="false" /> Founder &amp; CEO, Solarity AI</li>
+                    <li><FiSun aria-hidden="true" focusable="false" /> Founder &amp; CEO of Solarity AI</li>
                     <li><FiAward aria-hidden="true" focusable="false" /> 2× Valedictorian · 4.0 GPA</li>
                 </ul>
             </div>

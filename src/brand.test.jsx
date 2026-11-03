@@ -24,7 +24,7 @@ test('shows the highlights from ataturhan.com under the hero', () => {
   expect(screen.getByRole('heading', { level: 1, name: 'Ata Turhan' })).toBeInTheDocument();
   const highlights = screen.getByRole('list', { name: 'Highlights' });
   expect(within(highlights).getAllByRole('listitem').map((item) => item.textContent.trim())).toEqual([
-    'AI Engineer & Manager at HP', 'Founder & CEO, Solarity AI', '2× Valedictorian · 4.0 GPA',
+    'AI Engineer & Manager at HP', 'Founder & CEO of Solarity AI', '2× Valedictorian · 4.0 GPA',
   ]);
   const portrait = screen.getByRole('img', { name: 'Ata Turhan' });
   expect(portrait).toHaveAttribute('width', '720');
