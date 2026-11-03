@@ -1,85 +1,38 @@
-import { useCallback, useRef } from 'react';
-import Project from '../assets/project-card.webp';
+import { FiArrowUpRight } from "react-icons/fi";
 import data from '../data/projects.json';
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 const Projects = () => {
-    const container = useRef(null);
-
-    // react-slick hides off-screen slides from screen readers but leaves their links tabbable.
-    const syncHiddenSlides = useCallback(() => {
-        container.current?.querySelectorAll('.slick-slide').forEach((slide) => {
-            const hidden = slide.getAttribute('aria-hidden') === 'true';
-            slide.querySelectorAll('a').forEach((link) => {
-                if (hidden) link.setAttribute('tabindex', '-1');
-                else link.removeAttribute('tabindex');
-            });
-        });
-    }, []);
-
-    const settings = {
-        dots: true,
-        infinite: false,
-        initialSlide: 0,
-        slidesToShow: 3,
-        slidesToScroll: 3,
-        onInit: syncHiddenSlides,
-        onReInit: syncHiddenSlides,
-        afterChange: syncHiddenSlides,
-        customPaging: (index) => (
-            <button type="button" aria-label={`Projects page ${index + 1}`}>{index + 1}</button>
-        ),
-        responsive: [
-        {
-          breakpoint: 600,
-          settings: {
-            infinite: false,
-            initialSlide: 0,
-            slidesToShow: 1,
-            slidesToScroll: 1
-          }
-        }
-      ]
-    };
     return (
-        <div id='projects' className='projects'>
-            <div className="heading">
-                <h2>Projects</h2>
-            </div>
-                <div className="projects-container" ref={container}>
-                    <Slider {...settings}>
-                    {
-                        data.map((project, key) => {
-                            return (
-                                <div key={key} className="project">
-                                    <div className="content">
-                                        <img src={Project} alt="" width="320" height="205" loading="lazy" decoding="async" />
-                                        <h2 className="name">{project.name}</h2>
-                                        {
-                                            project.description.length > 130
-                                            ? <p className='description-min'>{project.description}</p>
-                                            :  <p className='description'>{project.description}</p>
-                                        }
-                                        <div>
-                                            <a
-                                            className="project-button"
-                                            target="_blank"
-                                            href={project.link}
-                                            aria-label={`${project.name} on GitHub`}
-                                            rel="noreferrer"
-                                            >GitHub
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        })
-                    }
-                    </Slider>
+        <section id="projects" className="section" aria-labelledby="projects-title">
+            <div className="container">
+                <div className="section-header">
+                    <h2 id="projects-title" className="section-title">Projects</h2>
+                    <p className="section-lead">Selected engineering work. Each repository's README covers its setup, scope and current limitations.</p>
                 </div>
-        </div>
+                <ul className="project-grid">
+                    {data.map((project) => (
+                        <li key={project.link}>
+                            <article className="project-card">
+                                <h3 className="project-card__title">{project.name}</h3>
+                                <p className="project-card__desc">{project.description}</p>
+                                <ul className="tag-list" aria-label={`${project.name} topics`}>
+                                    {project.tags.map((tag) => <li key={tag} className="tag">{tag}</li>)}
+                                </ul>
+                                <a className="text-link project-card__link" href={project.link} target="_blank" rel="noreferrer">
+                                    View on GitHub<span className="visually-hidden"> for {project.name}</span>
+                                    <FiArrowUpRight aria-hidden="true" focusable="false" />
+                                </a>
+                            </article>
+                        </li>
+                    ))}
+                </ul>
+                <p className="projects-more">
+                    <a className="text-link" href="https://github.com/ataturhan21?tab=repositories" target="_blank" rel="noreferrer">
+                        All repositories on GitHub <FiArrowUpRight aria-hidden="true" focusable="false" />
+                    </a>
+                </p>
+            </div>
+        </section>
     )
 }
 
