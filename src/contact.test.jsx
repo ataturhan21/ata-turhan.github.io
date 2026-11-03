@@ -30,12 +30,13 @@ const setClipboard = (clipboard) => Object.defineProperty(navigator, 'clipboard'
 
 afterEach(() => {
   setClipboard(undefined);
-  jest.useRealTimers();
+  vi.useRealTimers();
 });
 
 test('copies the email address, confirms it, then offers to copy again', async () => {
-  jest.useFakeTimers();
-  const writeText = jest.fn().mockResolvedValue(undefined);
+  // Fake time also moves with real time, so Testing Library's own zero-delay waits still run.
+  vi.useFakeTimers({ shouldAdvanceTime: true });
+  const writeText = vi.fn().mockResolvedValue(undefined);
   setClipboard({ writeText });
   render(<Contact />);
   expect(screen.getByRole('status')).toBeEmptyDOMElement();
@@ -43,7 +44,7 @@ test('copies the email address, confirms it, then offers to copy again', async (
   expect(await screen.findByRole('button', { name: 'Copied' })).toBeInTheDocument();
   expect(writeText).toHaveBeenCalledWith(email);
   expect(screen.getByRole('status')).toHaveTextContent('Email address copied.');
-  act(() => jest.advanceTimersByTime(2000));
+  act(() => vi.advanceTimersByTime(2000));
   expect(screen.getByRole('button', { name: 'Copy email address' })).toBeInTheDocument();
   expect(screen.getByRole('status')).toBeEmptyDOMElement();
 });

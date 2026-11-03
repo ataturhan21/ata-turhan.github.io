@@ -20,7 +20,7 @@ const Projects = () => {
                                     {project.tags.map((tag) => <li key={tag} className="tag">{tag}</li>)}
                                 </ul>
                                 <ExternalLink className="text-link project-card__link" href={project.link}>
-                                    View on GitHub<span className="visually-hidden"> for {project.name}</span>
+                                    View on GitHub <span className="visually-hidden">for {project.name}</span>
                                     <FiArrowUpRight aria-hidden="true" focusable="false" />
                                 </ExternalLink>
                             </article>
