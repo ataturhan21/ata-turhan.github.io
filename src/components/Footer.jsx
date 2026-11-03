@@ -1,10 +1,17 @@
+import { useSyncExternalStore } from 'react';
 import { FiArrowUp } from 'react-icons/fi';
 
+// The pre-rendered page carries the build year, which hydration reuses so the two renders match;
+// after that the visitor's clock decides, which keeps the year current between deploys.
+const noSubscription = () => () => {};
+const useYear = () => useSyncExternalStore(noSubscription, () => new Date().getFullYear(), () => __BUILD_YEAR__);
+
 const Footer = () => {
+    const year = useYear();
     return (
         <footer className="site-footer">
             <div className="container site-footer__inner">
-                <p>© {new Date().getFullYear()} Ata Turhan</p>
+                <p>© {year} Ata Turhan</p>
                 <ul className="footer-links">
                     <li><a href="https://ataturhan.com/">ataturhan.com</a></li>
                     <li><a href="https://solarityai.com/">Solarity AI</a></li>

@@ -41,5 +41,6 @@ test('keeps build and test tooling out of the production dependencies', () => {
 
 test('builds with Vite instead of the unmaintained Create React App', () => {
   expect(pkg.devDependencies).not.toHaveProperty('react-scripts');
-  expect(pkg.scripts).toMatchObject({ start: 'vite', build: 'vite build', test: 'vitest run' });
+  expect(pkg.scripts).toMatchObject({ start: 'vite', test: 'vitest run' });
+  expect(pkg.scripts.build).toMatch(/^vite build && /);
 });

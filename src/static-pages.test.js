@@ -3,19 +3,6 @@ import path from 'path';
 
 const root = path.join(__dirname, '..');
 const read = (...parts) => fs.readFileSync(path.join(root, ...parts), 'utf8');
-const contacts = [
-  'https://github.com/ataturhan21',
-  'https://www.linkedin.com/in/ataturhan21/',
-  'mailto:ataturhan21@gmail.com',
-  'https://medium.com/@ataturhan21',
-];
-
-test('shows who this is and how to get in touch without JavaScript', () => {
-  const noscript = read('index.html').match(/<noscript>([\s\S]*?)<\/noscript>/)[1];
-  expect(noscript).toContain('<h1');
-  expect(noscript).toContain('Ata Turhan');
-  for (const href of contacts) expect(noscript).toContain(`href="${href}"`);
-});
 
 test('serves a branded 404 page with a way back to the portfolio', () => {
   const page = read('public', '404.html');

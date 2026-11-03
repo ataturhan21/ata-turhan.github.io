@@ -24,7 +24,7 @@ This project uses React 18.3, built with Vite 8 and tested with Vitest 5 (as loc
 | `npm start` | Start the Vite dev server at http://localhost:5173 |
 | `npm test` | Run the test suite once (`npx vitest` keeps watching) |
 | `npm run lint` | Lint the code with ESLint |
-| `npm run build` | Generate production assets in `build/` |
+| `npm run build` | Generate production assets in `build/`, with the page pre-rendered into `index.html` |
 | `npm run preview` | Serve the production build locally |
 
 ## Update content
@@ -38,7 +38,7 @@ This project uses React 18.3, built with Vite 8 and tested with Vitest 5 (as loc
 | [Header.jsx](src/components/Header.jsx) | Monogram, name and section links; marks the section in view |
 | [Contact.jsx](src/components/Contact.jsx) | Email, Copy and LinkedIn actions, GitHub and Medium links |
 | [Footer.jsx](src/components/Footer.jsx) | Links to ataturhan.com and Solarity AI, and Back to top |
-| [index.html](index.html) | Page title, description, link-preview tags and the no-JavaScript fallback |
+| [index.html](index.html) | Page title, description, link-preview tags and structured data |
 | [404.html](public/404.html) | Page shown for unknown addresses |
 | `src/assets/pfp.webp`, `pfp-360.webp` | Hero portrait (720 and 360 px wide; phones load the smaller one) |
 | `public/og-image.jpg`, `favicon.ico`, `logo192.png`, `logo512.png` | Link-preview card and browser and app icons, made from the hero portrait |
@@ -47,6 +47,8 @@ This project uses React 18.3, built with Vite 8 and tested with Vitest 5 (as loc
 | [App.css](src/App.css) | Layout and components, built only from the tokens |
 
 Links that open a new tab use [ExternalLink.jsx](src/components/ExternalLink.jsx), which adds "(opens in a new tab)" for screen readers.
+
+`npm run build` also renders the page to HTML with [entry-server.jsx](src/entry-server.jsx) and [prerender.js](scripts/prerender.js), so the whole page shows before the script runs, and without it; React then attaches to that HTML. Anything a component renders must therefore come out the same on the server and in the browser (read `window` or the clock only after the first render, as `Footer.jsx` does for the year), or the tests fail with a hydration warning.
 
 Before merging to `main`, run tests and a production build and inspect the page at desktop and mobile sizes: every push to `main` publishes the site.
 
