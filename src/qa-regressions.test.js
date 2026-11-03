@@ -105,7 +105,7 @@ describe('projects', () => {
     for (const project of projects) {
       expect(screen.getByRole('heading', { level: 3, name: project.name })).toBeInTheDocument();
       // The visible "View on GitHub" comes first in the accessible name (WCAG 2.5.3 label in name).
-      const link = screen.getByRole('link', { name: `View on GitHub for ${project.name}` });
+      const link = screen.getByRole('link', { name: `View on GitHub for ${project.name} (opens in a new tab)` });
       expect(link).toHaveAttribute('href', project.link);
       expect(link).toHaveAttribute('rel', 'noreferrer');
       expect(link).not.toHaveAttribute('tabindex', '-1');

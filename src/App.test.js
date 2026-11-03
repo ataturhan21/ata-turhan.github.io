@@ -6,14 +6,14 @@ test('renders the portfolio identity and working contact destinations', () => {
   expect(screen.getByRole('heading', { level: 1, name: 'Ata Turhan' })).toBeInTheDocument();
   // The hero and the contact section both link the profiles; every copy must point to the right place.
   for (const [name, href] of [
-    ['Ata Turhan on GitHub', 'https://github.com/ataturhan21'],
-    ['Ata Turhan on LinkedIn', 'https://www.linkedin.com/in/ataturhan21/'],
+    ['Ata Turhan on GitHub (opens in a new tab)', 'https://github.com/ataturhan21'],
+    ['Ata Turhan on LinkedIn (opens in a new tab)', 'https://www.linkedin.com/in/ataturhan21/'],
   ]) {
     const links = screen.getAllByRole('link', { name });
     expect(links).toHaveLength(2);
     for (const link of links) expect(link).toHaveAttribute('href', href);
   }
-  expect(screen.getByRole('link', { name: 'View on GitHub for Image Captioner' }))
+  expect(screen.getByRole('link', { name: 'View on GitHub for Image Captioner (opens in a new tab)' }))
     .toHaveAttribute('href', 'https://github.com/ataturhan21/ImageCaptioner-ConvNeXt_Transformer');
 });
 

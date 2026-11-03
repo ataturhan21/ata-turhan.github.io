@@ -1,5 +1,6 @@
 import { FaGithub, FaLinkedin, FaMedium } from 'react-icons/fa';
 import { FiMail } from 'react-icons/fi';
+import ExternalLink from './ExternalLink';
 
 const Contact = () => {
     return (
@@ -14,13 +15,13 @@ const Contact = () => {
                         <a className="button button--primary" href="mailto:ataturhan21@gmail.com">
                             <FiMail aria-hidden="true" focusable="false" /> ataturhan21@gmail.com
                         </a>
-                        <a className="button button--secondary" href="https://www.linkedin.com/in/ataturhan21/" target="_blank" rel="noreferrer" aria-label="Ata Turhan on LinkedIn">
+                        <ExternalLink className="button button--secondary" href="https://www.linkedin.com/in/ataturhan21/" label="Ata Turhan on LinkedIn">
                             <FaLinkedin aria-hidden="true" focusable="false" /> LinkedIn
-                        </a>
+                        </ExternalLink>
                     </div>
                     <ul className="social-links">
-                        <li><a href="https://github.com/ataturhan21" target="_blank" rel="noreferrer" aria-label="Ata Turhan on GitHub"><FaGithub aria-hidden="true" focusable="false" /></a></li>
-                        <li><a href="https://medium.com/@ataturhan21" target="_blank" rel="noreferrer" aria-label="Ata Turhan on Medium"><FaMedium aria-hidden="true" focusable="false" /></a></li>
+                        <li><ExternalLink href="https://github.com/ataturhan21" label="Ata Turhan on GitHub"><FaGithub aria-hidden="true" focusable="false" /></ExternalLink></li>
+                        <li><ExternalLink href="https://medium.com/@ataturhan21" label="Ata Turhan on Medium"><FaMedium aria-hidden="true" focusable="false" /></ExternalLink></li>
                     </ul>
                 </div>
             </div>

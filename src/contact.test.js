@@ -7,11 +7,11 @@ test('offers working contact paths in the contact section', () => {
   expect(screen.getByRole('heading', { level: 2, name: 'Get in touch' })).toBeInTheDocument();
   expect(screen.getByRole('link', { name: 'ataturhan21@gmail.com' }))
     .toHaveAttribute('href', 'mailto:ataturhan21@gmail.com');
-  expect(screen.getByRole('link', { name: 'Ata Turhan on Medium' }))
+  expect(screen.getByRole('link', { name: 'Ata Turhan on Medium (opens in a new tab)' }))
     .toHaveAttribute('href', 'https://medium.com/@ataturhan21');
-  expect(screen.getByRole('link', { name: 'Ata Turhan on GitHub' }))
+  expect(screen.getByRole('link', { name: 'Ata Turhan on GitHub (opens in a new tab)' }))
     .toHaveAttribute('href', 'https://github.com/ataturhan21');
-  expect(screen.getByRole('link', { name: 'Ata Turhan on LinkedIn' }))
+  expect(screen.getByRole('link', { name: 'Ata Turhan on LinkedIn (opens in a new tab)' }))
     .toHaveAttribute('href', 'https://www.linkedin.com/in/ataturhan21/');
   for (const link of screen.getAllByRole('link').filter((a) => a.target === '_blank')) {
     expect(link).toHaveAttribute('rel', 'noreferrer');

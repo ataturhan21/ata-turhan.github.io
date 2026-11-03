@@ -1,5 +1,6 @@
 import { FiArrowUpRight } from "react-icons/fi";
 import data from '../data/projects.json';
+import ExternalLink from './ExternalLink';
 
 const Projects = () => {
     return (
@@ -18,18 +19,18 @@ const Projects = () => {
                                 <ul className="tag-list" aria-label={`${project.name} topics`}>
                                     {project.tags.map((tag) => <li key={tag} className="tag">{tag}</li>)}
                                 </ul>
-                                <a className="text-link project-card__link" href={project.link} target="_blank" rel="noreferrer">
+                                <ExternalLink className="text-link project-card__link" href={project.link}>
                                     View on GitHub<span className="visually-hidden"> for {project.name}</span>
                                     <FiArrowUpRight aria-hidden="true" focusable="false" />
-                                </a>
+                                </ExternalLink>
                             </article>
                         </li>
                     ))}
                 </ul>
                 <p className="projects-more">
-                    <a className="text-link" href="https://github.com/ataturhan21?tab=repositories" target="_blank" rel="noreferrer">
+                    <ExternalLink className="text-link" href="https://github.com/ataturhan21?tab=repositories">
                         All repositories on GitHub <FiArrowUpRight aria-hidden="true" focusable="false" />
-                    </a>
+                    </ExternalLink>
                 </p>
             </div>
         </section>
