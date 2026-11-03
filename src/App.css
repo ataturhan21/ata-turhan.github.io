@@ -121,8 +121,11 @@
   line-height: 1;
 }
 
+/* The links wrap to a second row only when the reader's text spacing needs it (WCAG 1.4.12). */
 .nav-list {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   gap: var(--space-1);
 }
 
@@ -501,6 +504,7 @@
 
 .contact-card {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   justify-items: start;
   gap: var(--space-5);
   padding: clamp(var(--space-6), 5vw, var(--space-8));
@@ -520,6 +524,13 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
+}
+
+/* The address breaks inside its button rather than pushing the card off a narrow screen. */
+.contact-actions .button {
+  flex: none;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 .contact-status {
