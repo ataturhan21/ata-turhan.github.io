@@ -19,7 +19,9 @@ jobs:
           node-version: '22'
       - name: Install locked dependencies
         run: npm ci --ignore-scripts
+      - name: Lint
+        run: npm run lint
       - name: Test navigation and contact destinations
-        run: CI=true npm test -- --watchAll=false --runInBand
+        run: npm test
       - name: Build production assets
         run: npm run build

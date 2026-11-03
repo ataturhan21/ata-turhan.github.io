@@ -39,7 +39,7 @@ const Contact = () => {
                         <button type="button" className="button button--secondary" onClick={copyEmail}>
                             {copyState === 'copied'
                                 ? <><FiCheck aria-hidden="true" focusable="false" /> Copied</>
-                                : <><FiCopy aria-hidden="true" focusable="false" /> Copy<span className="visually-hidden"> email address</span></>}
+                                : <><FiCopy aria-hidden="true" focusable="false" /> Copy <span className="visually-hidden">email address</span></>}
                         </button>
                         <ExternalLink className="button button--secondary" href="https://www.linkedin.com/in/ataturhan21/" label="Ata Turhan on LinkedIn">
                             <FaLinkedin aria-hidden="true" focusable="false" /> LinkedIn

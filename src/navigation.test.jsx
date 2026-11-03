@@ -28,20 +28,20 @@ describe('current section in the header', () => {
       document.getElementById(id).getBoundingClientRect = () => ({ top, bottom: top + 1000 });
     });
     fireEvent.scroll(window);
-    act(() => jest.advanceTimersByTime(16));
+    act(() => vi.advanceTimersByTime(16));
   };
 
   beforeEach(() => {
     // Animation frames as 16 ms timers, so the test controls when they run.
-    jest.useFakeTimers();
-    jest.spyOn(window, 'requestAnimationFrame').mockImplementation((callback) => setTimeout(callback, 16));
-    jest.spyOn(window, 'cancelAnimationFrame').mockImplementation((id) => clearTimeout(id));
+    vi.useFakeTimers();
+    vi.spyOn(window, 'requestAnimationFrame').mockImplementation((callback) => setTimeout(callback, 16));
+    vi.spyOn(window, 'cancelAnimationFrame').mockImplementation((id) => clearTimeout(id));
     Object.defineProperty(document.documentElement, 'scrollHeight', { value: 6000, configurable: true });
   });
 
   afterEach(() => {
-    jest.useRealTimers();
-    jest.restoreAllMocks();
+    vi.useRealTimers();
+    vi.restoreAllMocks();
     delete document.documentElement.scrollHeight;
   });
 

@@ -188,7 +188,7 @@ describe('performance and sharing', () => {
   });
 
   test('gives shared links a preview and one canonical address', () => {
-    const html = read('public', 'index.html');
+    const html = read('index.html');
     expect(html).toContain('<link rel="canonical" href="https://ataturhan21.github.io/" />');
     for (const tag of ['og:type', 'og:url', 'og:title', 'og:description', 'og:image']) {
       expect(html).toContain(`property="${tag}"`);
