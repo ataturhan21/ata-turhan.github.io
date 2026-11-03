@@ -1,7 +1,7 @@
 import { gzipSync } from 'zlib';
 import { StrictMode } from 'react';
 import { hydrateRoot } from 'react-dom/client';
-import { act, screen } from '@testing-library/react';
+import { act, screen, waitFor } from '@testing-library/react';
 import { fillRoot } from '../scripts/prerender';
 import { render } from './entry-server';
 import App from './App';
@@ -32,13 +32,17 @@ test('hydrates the pre-rendered page without a mismatch, then adds the skill log
   container.innerHTML = render();
   document.body.append(container);
   const logos = () => [...container.querySelectorAll('#skills .chip svg')];
-  expect(logos()).toHaveLength(12);
+  // One logo per skill chip.
+  expect(logos()).toHaveLength(40);
   expect(logos().every((logo) => !logo.hasChildNodes())).toBe(true);
   // A mismatch makes React log an error, which fails the test (setupTests.js).
-  await act(async () => hydrateRoot(container, <StrictMode><App /></StrictMode>));
-  expect(logos()).toHaveLength(12);
-  expect(logos().every((logo) => logo.hasChildNodes())).toBe(true);
+  let root;
+  await act(async () => { root = hydrateRoot(container, <StrictMode><App /></StrictMode>); });
   expect(screen.getByRole('contentinfo')).toHaveTextContent(`© ${new Date().getFullYear()} Ata Turhan`);
+  // The logos arrive in their own file after hydration and fill the same boxes.
+  await waitFor(() => expect(logos().every((logo) => logo.hasChildNodes())).toBe(true));
+  expect(logos()).toHaveLength(40);
+  act(() => root.unmount());
   container.remove();
 });
 

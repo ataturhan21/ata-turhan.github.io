@@ -34,7 +34,7 @@ This project uses React 18.3, built with Vite 8 and tested with Vitest 5 (as loc
 | [Body.jsx](src/components/Body.jsx) | Hero: role line, name, summary, the two main actions and profile links |
 | [About.jsx](src/components/About.jsx) | Biography and the Now, Based in and Education facts |
 | [projects.json](src/data/projects.json) | Project names, descriptions, topic tags and repository links |
-| [Skills.jsx](src/components/Skills.jsx) | Skill groups (match the GitHub profile's Technical focus) |
+| [Skills.jsx](src/components/Skills.jsx), [skillLogos.js](src/components/skillLogos.js) | The six skill groups (they match the GitHub profile's Technical focus), and each skill's logo by name |
 | [Header.jsx](src/components/Header.jsx) | Monogram, name and section links; marks the section in view |
 | [Contact.jsx](src/components/Contact.jsx) | Email, Copy and LinkedIn actions, GitHub and Medium links |
 | [Footer.jsx](src/components/Footer.jsx) | Links to ataturhan.com and Solarity AI, and Back to top |
@@ -49,7 +49,7 @@ This project uses React 18.3, built with Vite 8 and tested with Vitest 5 (as loc
 
 Links that open a new tab use [ExternalLink.jsx](src/components/ExternalLink.jsx), which adds "(opens in a new tab)" for screen readers.
 
-`npm run build` also renders the page to HTML with [entry-server.jsx](src/entry-server.jsx) and [prerender.js](scripts/prerender.js), so the whole page shows before the script runs, and without it; React then attaches to that HTML. Anything a component renders must therefore come out the same on the server and in the browser, or the tests fail with a hydration warning: take browser-only values, such as the clock, through [useClientValue.js](src/useClientValue.js), as `Footer.jsx` does for the year. The skill logos stay out of the HTML the same way, which keeps the page under one round trip (a test checks it stays under 10 KB gzipped).
+`npm run build` also renders the page to HTML with [entry-server.jsx](src/entry-server.jsx) and [prerender.js](scripts/prerender.js), so the whole page shows before the script runs, and without it; React then attaches to that HTML. Anything a component renders must therefore come out the same on the server and in the browser, or the tests fail with a hydration warning: take browser-only values, such as the clock, through [useClientValue.js](src/useClientValue.js), as `Footer.jsx` does for the year. The skill logos stay out of the HTML and the main script: they're their own file, which loads when the Skills section comes within a screen of the viewport. That keeps the page under one round trip (a test checks it stays under 10 KB gzipped). A new skill needs its name in `Skills.jsx` and its logo in `skillLogos.js`.
 
 Before merging to `main`, run tests and a production build and inspect the page at desktop and mobile sizes: every push to `main` that passes lint and tests publishes the site.
 
