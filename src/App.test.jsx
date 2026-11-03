@@ -32,3 +32,14 @@ test('provides keyboard navigation and meaningful page landmarks', () => {
     expect(document.querySelector(target)).toBeInTheDocument();
   }
 });
+
+test('opens every off-site link in a new tab and says so', () => {
+  render(<App />);
+  const offSite = screen.getAllByRole('link').filter((link) => /^https?:/.test(link.getAttribute('href')));
+  expect(offSite.length).toBeGreaterThan(5);
+  for (const link of offSite) {
+    expect(link).toHaveAttribute('target', '_blank');
+    expect(link).toHaveAttribute('rel', 'noreferrer');
+    expect(link).toHaveAccessibleName(/\(opens in a new tab\)$/);
+  }
+});

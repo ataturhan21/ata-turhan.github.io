@@ -20,8 +20,8 @@ test('offers working contact paths in the contact section', () => {
 
 test('links the main site and Solarity AI from the footer', () => {
   render(<Footer />);
-  expect(screen.getByRole('link', { name: 'ataturhan.com' })).toHaveAttribute('href', 'https://ataturhan.com/');
-  expect(screen.getByRole('link', { name: 'Solarity AI' })).toHaveAttribute('href', 'https://solarityai.com/');
+  expect(screen.getByRole('link', { name: 'ataturhan.com (opens in a new tab)' })).toHaveAttribute('href', 'https://ataturhan.com/');
+  expect(screen.getByRole('link', { name: 'Solarity AI (opens in a new tab)' })).toHaveAttribute('href', 'https://solarityai.com/');
   expect(screen.getByRole('contentinfo')).toHaveTextContent(`© ${new Date().getFullYear()} Ata Turhan`);
 });
 

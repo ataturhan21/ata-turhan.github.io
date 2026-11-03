@@ -1,5 +1,6 @@
 import { FaDocker, FaGitAlt, FaLinux, FaPython, FaReact } from "react-icons/fa";
 import { SiFastapi, SiGithubactions, SiPostgresql, SiPytorch, SiScikitlearn, SiTensorflow, SiTypescript } from "react-icons/si";
+import { useClientValue } from '../useClientValue';
 
 // The same groups and stack as the GitHub profile's Technical focus.
 const groups = [
@@ -33,6 +34,9 @@ const groups = [
 ];
 
 const Skills = () => {
+    // The logos are about 24 KB of SVG, most of the pre-rendered page, so the HTML carries an empty
+    // 1em box for each and the logo fills it after hydration; nothing moves when it does.
+    const showLogos = useClientValue(() => true, false);
     return (
         <section id="skills" className="section" aria-labelledby="skills-title">
             <div className="container">
@@ -48,7 +52,9 @@ const Skills = () => {
                                 <ul className="chip-list" aria-labelledby={id}>
                                     {skills.map(({ name, icon: Icon }) => (
                                         <li key={name} className="chip">
-                                            <Icon aria-hidden="true" focusable="false" />
+                                            {showLogos
+                                                ? <Icon aria-hidden="true" focusable="false" />
+                                                : <svg aria-hidden="true" focusable="false" height="1em" width="1em" />}
                                             {name}
                                         </li>
                                     ))}
