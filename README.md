@@ -51,11 +51,11 @@ Links that open a new tab use [ExternalLink.jsx](src/components/ExternalLink.jsx
 
 `npm run build` also renders the page to HTML with [entry-server.jsx](src/entry-server.jsx) and [prerender.js](scripts/prerender.js), so the whole page shows before the script runs, and without it; React then attaches to that HTML. Anything a component renders must therefore come out the same on the server and in the browser (read `window` or the clock only after the first render, as `Footer.jsx` does for the year), or the tests fail with a hydration warning.
 
-Before merging to `main`, run tests and a production build and inspect the page at desktop and mobile sizes: every push to `main` publishes the site.
+Before merging to `main`, run tests and a production build and inspect the page at desktop and mobile sizes: every push to `main` that passes lint and tests publishes the site.
 
 ## Deployment
 
-[deploy-pages.yml](.github/workflows/deploy-pages.yml) builds the app on every push to `main` and publishes `build/` to GitHub Pages. It can also be run manually from the Actions tab. The repository's Pages source must be **GitHub Actions** (Settings → Pages). [vite.config.js](vite.config.js) sets `base: './'`, so the build uses relative asset paths and works at any URL. It also adds a Content-Security-Policy meta tag to the built page that allows only the site's own files (GitHub Pages can't send security headers); a new third-party script, font or image must be added to that policy, or the browser blocks it. [public/ata-turhan.github.io/index.html](public/ata-turhan.github.io/index.html) redirects the old address to the root.
+[deploy-pages.yml](.github/workflows/deploy-pages.yml) runs lint and tests on every push to `main`, then builds the app and publishes `build/` to GitHub Pages; a failing check stops the deploy. It can also be run manually from the Actions tab. The repository's Pages source must be **GitHub Actions** (Settings → Pages). [vite.config.js](vite.config.js) sets `base: './'`, so the build uses relative asset paths and works at any URL. It also adds a Content-Security-Policy meta tag to the built page that allows only the site's own files (GitHub Pages can't send security headers); a new third-party script, font or image must be added to that policy, or the browser blocks it. [public/ata-turhan.github.io/index.html](public/ata-turhan.github.io/index.html) redirects the old address to the root.
 
 ## License
 
