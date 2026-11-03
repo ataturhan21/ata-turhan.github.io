@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import App from './App';
 
 test('says which links open a new tab', () => {
@@ -16,4 +16,49 @@ test('names the home link and offers a way back to the top', () => {
   expect(screen.getByRole('link', { name: 'Ata Turhan' })).toHaveAttribute('href', '#app');
   expect(screen.getByRole('link', { name: 'Back to top' })).toHaveAttribute('href', '#app');
   expect(document.querySelector('#app')).toBeInTheDocument();
+});
+
+describe('current section in the header', () => {
+  const nav = () => screen.getByRole('navigation', { name: 'Primary' });
+  const currentLinks = () => [...nav().querySelectorAll('a[aria-current="true"]')].map((link) => link.textContent);
+  // Lays the sections out from `firstTop` down, 1000 px each, on a 768 px tall window (jsdom's).
+  const layOut = (firstTop) => {
+    ['about', 'projects', 'skills', 'contact'].forEach((id, index) => {
+      const top = firstTop + index * 1000;
+      document.getElementById(id).getBoundingClientRect = () => ({ top, bottom: top + 1000 });
+    });
+    fireEvent.scroll(window);
+    act(() => jest.advanceTimersByTime(16));
+  };
+
+  beforeEach(() => {
+    // Animation frames as 16 ms timers, so the test controls when they run.
+    jest.useFakeTimers();
+    jest.spyOn(window, 'requestAnimationFrame').mockImplementation((callback) => setTimeout(callback, 16));
+    jest.spyOn(window, 'cancelAnimationFrame').mockImplementation((id) => clearTimeout(id));
+    Object.defineProperty(document.documentElement, 'scrollHeight', { value: 6000, configurable: true });
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
+    jest.restoreAllMocks();
+    delete document.documentElement.scrollHeight;
+  });
+
+  test('marks no link on the hero, then the section that reached the reading line', () => {
+    render(<App />);
+    layOut(900);
+    expect(currentLinks()).toEqual([]);
+    layOut(-1500);
+    expect(currentLinks()).toEqual(['Projects']);
+    expect(screen.getByRole('link', { name: 'Projects' })).toHaveAttribute('aria-current', 'true');
+  });
+
+  test('marks the last section at the bottom of the page', () => {
+    render(<App />);
+    Object.defineProperty(window, 'scrollY', { value: 6000 - 768, configurable: true });
+    layOut(-2600);
+    expect(currentLinks()).toEqual(['Contact']);
+    Object.defineProperty(window, 'scrollY', { value: 0, configurable: true });
+  });
 });
