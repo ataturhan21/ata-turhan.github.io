@@ -78,6 +78,12 @@ describe('layout and contrast', () => {
     expect(cssRule('.project-grid')['grid-template-columns']).toContain('minmax(min(100%,');
   });
 
+  test('keeps the header one row tall, so the scroll offset matches it at every width', () => {
+    const css = stylesheet();
+    expect(css.match(/--header-height:/g)).toHaveLength(1);
+    expect(css).not.toMatch(/\.site-header__inner\s*\{[^}]*flex-wrap:\s*wrap/);
+  });
+
   test('header links stay readable over any content scrolling underneath', () => {
     const header = resolve(cssRule('.site-header').background);
     const link = resolve(cssRule('.nav-list a').color);

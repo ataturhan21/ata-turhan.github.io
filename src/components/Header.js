@@ -9,7 +9,10 @@ const Header = () => {
     return (
         <header className="site-header">
             <div className="container site-header__inner">
-                <a className="wordmark" href="#app">Ata Turhan</a>
+                <a className="wordmark" href="#app">
+                    <span className="wordmark__mark" aria-hidden="true">AT</span>
+                    <span className="wordmark__name">Ata Turhan</span>
+                </a>
                 <nav aria-label="Primary">
                     <ul className="nav-list">
                         {sections.map(({ label, href }) => (
