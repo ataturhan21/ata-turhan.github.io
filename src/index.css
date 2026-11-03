@@ -1,24 +1,50 @@
-/* Design tokens: midnight and gold, matching the GitHub profile banner. */
+/* Self-hosted brand fonts (OFL, see public/fonts/LICENSE.txt). */
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("/fonts/manrope-variable.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/cormorant-garamond-medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/cormorant-garamond-italic.woff2") format("woff2");
+}
+
+/* Design tokens: warm black, cream and gold, shared with ataturhan.com and solarityai.com. */
 :root {
   color-scheme: dark;
 
-  --color-bg: #0a0e15;
-  --color-bg-raised: #0f141e;
-  --color-surface: #131a26;
-  --color-surface-hover: #182131;
-  --color-border: #233044;
-  --color-border-strong: #33435c;
-  --color-text: #eef1f6;
-  --color-text-muted: #a7b1c2;
-  --color-accent: #c8a96b;
-  --color-accent-strong: #ddc28c;
-  --color-on-accent: #0a0e15;
-  --color-focus: #e9cf98;
-  --color-header: rgba(10, 14, 21, 0.85);
-  --color-accent-ring: rgba(200, 169, 107, 0.45);
+  --color-bg: #0e0c0a;
+  --color-bg-raised: #14110e;
+  --color-surface: #1a1612;
+  --color-surface-hover: #211c17;
+  --color-border: #2e2720;
+  --color-border-strong: #463b2f;
+  --color-text: #f6f2ea;
+  --color-text-muted: #b4ab9f;
+  --color-accent: #e9b56a;
+  --color-accent-strong: #f2c98a;
+  --color-on-accent: #1a140e;
+  --color-focus: #f5d9a8;
+  --color-header: rgba(14, 12, 10, 0.85);
+  --color-accent-ring: rgba(233, 181, 106, 0.45);
+  --color-accent-glow: rgba(233, 181, 106, 0.16);
 
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI Variable Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-display: -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
 
   --text-xs: 0.8125rem;
   --text-sm: 0.875rem;
@@ -26,8 +52,8 @@
   --text-md: 1.0625rem;
   --text-lg: 1.25rem;
   --text-xl: 1.375rem;
-  --text-2xl: clamp(1.875rem, 1.4rem + 1.6vw, 2.5rem);
-  --text-display: clamp(2.75rem, 1.6rem + 4.6vw, 4.75rem);
+  --text-2xl: clamp(2.25rem, 1.6rem + 2.2vw, 3.25rem);
+  --text-display: clamp(3.5rem, 2rem + 6vw, 6rem);
 
   --leading-tight: 1.05;
   --leading-snug: 1.25;
